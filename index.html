@@ -126,12 +126,9 @@ textarea.script:focus,.field input:focus,.field select:focus{outline:2px solid #
 .sbtn{padding:9px 14px;border-radius:11px;background:var(--stage3);color:#e8ecf5;font-weight:700;font-size:14px}
 .sbtn:hover{background:#2c3750}
 .sbtn.stop{background:#ff5a5f;color:#fff}
-.sbody{flex:1;min-height:0;display:grid;grid-template-columns:1.1fr 1fr .95fr;gap:12px;padding:12px}
+.sbody{flex:1;min-height:0;display:grid;grid-template-columns:1.15fr 1fr;gap:12px;padding:12px}
 .pane{position:relative;background:var(--stage2);border:1px solid #1f2738;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
 .pane .ph{font-size:12px;font-weight:700;letter-spacing:.5px;color:#7f8aa3;padding:10px 14px;border-bottom:1px solid #1f2738;display:flex;justify-content:space-between;align-items:center}
-.slide{flex:1;display:grid;place-items:center;padding:12px;min-height:0}
-.slide img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
-.slide .empty{color:#5f6a82;text-align:center;font-size:14px}
 .snav{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px;border-top:1px solid #1f2738;font-size:13px;color:#9aa5bd}
 .snav button{width:34px;height:30px;border-radius:9px;background:var(--stage3);color:#fff;font-size:17px}
 .me{flex:1;position:relative;background:#000;min-height:0}
@@ -276,13 +273,10 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
 @media (max-width:980px){
   .grid,.r2{grid-template-columns:1fr}
   .metrics{grid-template-columns:repeat(2,1fr)}
-  .sbody{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-  .sbody .pane.p-me{grid-column:1/3}
   .steps{display:none}
 }
 @media (orientation:portrait) and (max-width:980px){
-  .sbody{grid-template-columns:1fr;grid-template-rows:1.1fr 1fr 1fr}
-  .sbody .pane.p-me{grid-column:auto;order:-1}
+  .sbody{grid-template-columns:1fr;grid-template-rows:1.1fr 1fr}
   .tbar{display:none}
 }
 @media (max-width:560px){ .modes,.checks{grid-template-columns:1fr} .flow{grid-template-columns:repeat(3,1fr)} .hero h1{font-size:23px} .top{padding:10px 14px} .wrap{padding:14px} .brand small{display:none} }
@@ -377,18 +371,11 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
         </div>
       </section>
 
-      <section class="card">
-        <h2><span class="n">4</span>슬라이드 <span style="font-weight:500;color:var(--mute);font-size:13px">(선택)</span></h2>
-        <p class="sub">PDF·이미지를 올리면 발표 화면 왼쪽에 보여요. PPT는 <b>PDF로 저장해서 올리면</b> 디자인이 그대로 보여요.</p>
-        <label class="drop" id="drop"><input type="file" id="file" accept=".pdf,.pptx,image/*" multiple hidden>📎 PDF · PPTX · 이미지 첨부 (여러 장 가능)</label>
-        <div class="thumbs" id="thumbs"></div>
-        <div class="tools"><button class="btn sm" id="bSampleSlides">샘플 슬라이드</button><button class="btn sm" id="bClearSlides">슬라이드 지우기</button><span class="note" id="slideInfo" style="margin:0;align-self:center"></span></div>
-      </section>
     </div>
 
     <div class="col">
       <section class="card">
-        <div class="status"><h2 style="margin:0"><span class="n">5</span>카메라 · 마이크 확인</h2><span class="cnt" id="ckCount">0/3 준비됨</span></div>
+        <div class="status"><h2 style="margin:0"><span class="n">4</span>카메라 · 마이크 확인</h2><span class="cnt" id="ckCount">0/3 준비됨</span></div>
         <div class="cam" id="camBox">
           <video id="pv" playsinline muted autoplay></video>
           <div class="guide"><div class="frame"></div><div class="eye"><span>눈높이</span></div><div class="lens">● 렌즈를 봐요</div></div>
@@ -411,7 +398,7 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
 
       <section class="card start">
         <button class="btn acc lg" id="bStart" disabled>● 리허설 시작</button>
-        <small id="startHint">카메라를 켜면 시작할 수 있어요 · <span class="kbd">Space</span> 시작/종료 · <span class="kbd">←</span><span class="kbd">→</span> 슬라이드 · <span class="kbd">↑</span><span class="kbd">↓</span> 대본 · <span class="kbd">F</span> 전체화면</small>
+        <small id="startHint">카메라를 켜면 시작할 수 있어요 · <span class="kbd">Space</span> 시작/종료 · <span class="kbd">↑</span><span class="kbd">↓</span> 대본 · <span class="kbd">F</span> 전체화면</small>
       </section>
 
       <section class="card" style="font-size:13px;color:var(--ink2)">
@@ -433,11 +420,6 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
     <div class="sp"><button class="sbtn" id="bFull">⛶ 전체화면</button><button class="sbtn stop" id="bStop">■ 발표 종료</button></div>
   </div>
   <div class="sbody">
-    <div class="pane p-slide">
-      <div class="ph"><span>SLIDE</span><span id="sCount"></span></div>
-      <div class="slide" id="slideView"></div>
-      <div class="snav"><button id="sPrev">‹</button><span id="sIdx">-</span><button id="sNext">›</button></div>
-    </div>
     <div class="pane p-me">
       <div class="ph"><span>ME · 내 모습</span><span>● 렌즈를 봐요</span></div>
       <div class="me">
@@ -519,6 +501,7 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
  * 3) [배포] → [새 배포] → 유형: 웹 앱 → 실행: 나 / 액세스 권한: 모든 사용자 → 배포
  * 4) 나온 웹 앱 URL(https://script.google.com/macros/s/.../exec)을 리허설 앱의
  *    [선생님 설정]에 붙여넣기
+ * 리허설이 끝나면 기록이 자동 저장되고, 학생이 성찰을 저장하면 같은 줄에 채워집니다.
  * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필 → 버전: 새 버전 으로 다시 배포해야 반영됩니다.
  */
 
@@ -532,7 +515,7 @@ const RECORD_HEADERS = [
   '저장 시각', '반', '번호', '이름', '회차', '방식',
   '발표 시간(초)', '말 속도(WPM)', '단어 수', '긴 멈춤(회)', '군말(회)',
   '대본/키워드 반영(%)', '화면 보기(%)', '대본 보기(%)', '미소(%)', '손 제스처(%)',
-  '다음 미션', '성찰1: 잘된 점', '성찰2: 고칠 점', '성찰3: 청중 질문', '대본', '인식된 말'
+  '다음 미션', '성찰1: 잘된 점', '성찰2: 고칠 점', '성찰3: 청중 질문', '대본', '인식된 말', '기록ID'
 ];
 const COACH_HEADERS = ['시각', '반', '번호', '이름', '종류', '학생 메시지', 'AI 코치 답변'];
 
@@ -559,6 +542,9 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     if (d.action === 'ping') {
       return json_({ ok: true, coach: !!PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY') });
+    }
+    if (d.action === 'reflect') {
+      return json_({ ok: reflect_(d) });
     }
     if (d.action === 'save') {
       saveRecord_(d);
@@ -587,17 +573,54 @@ function sheet_(name, headers) {
   return sh;
 }
 
+function recordSheet_() {
+  const sh = sheet_(RECORD_SHEET, RECORD_HEADERS);
+  // 예전 버전으로 만든 탭이면 '기록ID' 열을 뒤에 추가
+  if (sh.getLastColumn() < RECORD_HEADERS.length) {
+    sh.getRange(1, 1, 1, RECORD_HEADERS.length).setValues([RECORD_HEADERS]).setFontWeight('bold').setBackground('#eef2ff');
+  }
+  return sh;
+}
+
+function findRow_(sh, id) {
+  if (!id || sh.getLastRow() < 2) return 0;
+  const col = RECORD_HEADERS.length;
+  const ids = sh.getRange(2, col, sh.getLastRow() - 1, 1).getValues();
+  for (let i = ids.length - 1; i >= 0; i--) if (String(ids[i][0]) === String(id)) return i + 2;
+  return 0;
+}
+
 function saveRecord_(d) {
   const s = d.student || {}, r = d.report || {}, f = d.reflection || {};
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    sheet_(RECORD_SHEET, RECORD_HEADERS).appendRow([
+    const sh = recordSheet_();
+    const row = [
       new Date(), s.cls, s.num, s.name, r.attempt, r.modeLabel,
       r.duration, r.wpm, r.words, r.pauses, r.fillers,
       r.coverage, r.gazeCamera, r.gazeDown, r.smile, r.hands,
-      r.mission, f.good, f.fix, f.question, clip_(d.script), clip_(r.transcript)
-    ]);
+      r.mission, f.good || '', f.fix || '', f.question || '', clip_(d.script), clip_(r.transcript), d.id || ''
+    ];
+    const at = findRow_(sh, d.id);
+    if (at) sh.getRange(at, 1, 1, row.length).setValues([row]);
+    else sh.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// 자동 저장된 줄에 성찰 답변만 채우기
+function reflect_(d) {
+  const f = d.reflection || {};
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = recordSheet_();
+    const at = findRow_(sh, d.id);
+    if (!at) return false;
+    sh.getRange(at, 18, 1, 3).setValues([[f.good || '', f.fix || '', f.question || '']]);
+    return true;
   } finally {
     lock.releaseLock();
   }
@@ -674,7 +697,7 @@ function toast(msg, ms=2600){ const t=$('#toast'); t.textContent=msg; t.classLis
 
 /* ---------- state ---------- */
 const S = {
-  mode: 'script', slides: [], slideIdx: 0,
+  mode: 'script',
   stream: null, audioCtx: null, analyser: null, buf: null,
   vision: { face: null, hand: null, ready: false, loading: false, failed: false },
   recording: false, counting: false, t0: 0, recorder: null, chunks: [], mime: '',
@@ -782,110 +805,6 @@ function extractKeywords(t){
   }).filter(Boolean).join('\n');
 }
 $('#bKw').onclick = () => { $('#kw').value = extractKeywords($('#script').value); saveScript(true); toast('키워드를 뽑았어요. 내 말로 고쳐 써도 좋아요.'); };
-
-/* ---------- slides ---------- */
-const loadScript = src => new Promise((ok, no) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
-$('#file').addEventListener('change', e => addFiles([...e.target.files]));
-const drop = $('#drop');
-['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = 'var(--blue)'; }));
-['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = ''; }));
-drop.addEventListener('drop', e => addFiles([...e.dataTransfer.files]));
-async function addFiles(files){
-  $('#slideInfo').textContent = '불러오는 중…';
-  try{
-    for (const f of files){
-      if (/\.pdf$/i.test(f.name) || f.type === 'application/pdf') await addPdf(f);
-      else if (/\.pptx$/i.test(f.name)) await addPptx(f);
-      else if (f.type.startsWith('image/')) S.slides.push(await fileToUrl(f));
-      else if (/\.ppt$/i.test(f.name)) toast('예전 .ppt 형식은 열 수 없어요. PDF로 저장해서 올려 주세요.');
-    }
-  }catch(err){ console.error(err); toast('파일을 여는 중 문제가 생겼어요. PDF로 저장해서 다시 올려 보세요.'); }
-  $('#file').value = ''; renderThumbs();
-}
-const fileToUrl = f => new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(f); });
-async function addPdf(f){
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
-  const lib = window.pdfjsLib;
-  lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  const pdf = await lib.getDocument({ data: await f.arrayBuffer() }).promise;
-  for (let i=1;i<=pdf.numPages;i++){
-    const p = await pdf.getPage(i), v0 = p.getViewport({ scale: 1 }), sc = 1400 / v0.width, v = p.getViewport({ scale: sc });
-    const c = document.createElement('canvas'); c.width = v.width; c.height = v.height;
-    await p.render({ canvasContext: c.getContext('2d'), viewport: v }).promise;
-    S.slides.push(c.toDataURL('image/jpeg', .88));
-    $('#slideInfo').textContent = `PDF ${i}/${pdf.numPages}쪽…`;
-  }
-}
-async function addPptx(f){
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
-  const zip = await window.JSZip.loadAsync(await f.arrayBuffer());
-  const A = 'http://schemas.openxmlformats.org/drawingml/2006/main';
-  const names = Object.keys(zip.files).filter(n => /^ppt\/slides\/slide\d+\.xml$/.test(n)).sort((a,b) => +a.match(/\d+/)[0] - +b.match(/\d+/)[0]);
-  for (const n of names){
-    const xml = new DOMParser().parseFromString(await zip.file(n).async('text'), 'application/xml');
-    const paras = [...xml.getElementsByTagNameNS(A, 'p')].map(p => [...p.getElementsByTagNameNS(A, 't')].map(t => t.textContent).join('')).filter(s => s.trim());
-    let img = null;
-    const rel = zip.file(n.replace('slides/', 'slides/_rels/') + '.rels');
-    if (rel){
-      const rx = new DOMParser().parseFromString(await rel.async('text'), 'application/xml');
-      const r = [...rx.getElementsByTagName('Relationship')].find(r => /\/image$/.test(r.getAttribute('Type')) && /\.(png|jpe?g|gif)$/i.test(r.getAttribute('Target')));
-      if (r){
-        const path = 'ppt/' + r.getAttribute('Target').replace(/^\.\.\//, '').replace(/^\/ppt\//,'');
-        const zf = zip.file(path);
-        if (zf){ try{ img = await blobToImg(await zf.async('blob')); }catch{} }
-      }
-    }
-    S.slides.push(drawTextSlide(paras[0] || '', paras.slice(1), img));
-  }
-  toast('PPT는 글자와 그림만 간단히 보여요. 디자인 그대로 보려면 PDF로 저장해서 올려 주세요.', 4200);
-}
-const blobToImg = b => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = URL.createObjectURL(b); });
-function wrapText(ctx, text, x, y, maxW, lh){
-  const ws = text.split(/\s+/); let line = '', yy = y;
-  for (const w of ws){ const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > maxW && line){ ctx.fillText(line, x, yy); line = w; yy += lh; } else line = test; }
-  if (line){ ctx.fillText(line, x, yy); yy += lh; }
-  return yy;
-}
-function drawTextSlide(title, bullets, img, theme){
-  const c = document.createElement('canvas'); c.width = 1280; c.height = 720; const x = c.getContext('2d');
-  const th = theme || { bg:'#ffffff', ink:'#14213d', acc:'#ff6b3d', sub:'#46506a' };
-  x.fillStyle = th.bg; x.fillRect(0,0,1280,720);
-  x.fillStyle = th.acc; x.fillRect(70, 82, 70, 8);
-  const textW = img ? 640 : 1120;
-  x.fillStyle = th.ink; x.font = '800 54px Pretendard, sans-serif'; x.textBaseline = 'top';
-  let y = wrapText(x, title, 70, 112, textW, 66) + 22;
-  x.font = '500 33px Pretendard, sans-serif'; x.fillStyle = th.sub;
-  for (const b of bullets.slice(0, 7)){ x.fillStyle = th.acc; x.fillText('•', 74, y); x.fillStyle = th.sub; y = wrapText(x, b, 108, y, textW - 40, 46) + 12; if (y > 660) break; }
-  if (img){ const s = Math.min(460/img.width, 520/img.height); const w = img.width*s, h = img.height*s; x.drawImage(img, 1210 - w, 360 - h/2, w, h); }
-  return c.toDataURL('image/jpeg', .9);
-}
-function sampleSlides(){
-  const T = { bg:'#0f1b33', ink:'#ffffff', acc:'#ffb547', sub:'#c9d3ea' };
-  const W = { bg:'#ffffff', ink:'#14213d', acc:'#ff6b3d', sub:'#46506a' };
-  return [
-    drawTextSlide('Why does a curveball curve?', ['My hobby: playing baseball on weekends', 'A ball is just a ball… so how can it change direction in the air?'], ballImg(), T),
-    drawTextSlide('The secret is SPIN', ['The pitcher snaps his wrist', 'The ball spins about 30 times per second', 'Spin pulls the air around the ball'], ballImg(true), W),
-    drawTextSlide('The Magnus effect', ['One side: air moves faster → lower pressure', 'Other side: air moves slower → higher pressure', 'The ball is pushed toward lower pressure'], null, W),
-    drawTextSlide('Example: a soccer free kick', ['A kick with a lot of spin', 'The ball bends around the wall of players', 'Same science as the curveball!'], null, W),
-    drawTextSlide('Summary', ['Curveball = spin + air pressure', 'Next time, watch the ball carefully!', 'Thank you for listening'], null, T)
-  ];
-}
-function ballImg(arrows){
-  const c = document.createElement('canvas'); c.width = 460; c.height = 460; const x = c.getContext('2d');
-  x.fillStyle = '#fbfaf5'; x.beginPath(); x.arc(230,230,170,0,7); x.fill();
-  x.strokeStyle = '#d7d2c2'; x.lineWidth = 3; x.stroke();
-  x.strokeStyle = '#e0384b'; x.lineWidth = 6; x.setLineDash([12,10]);
-  x.beginPath(); x.arc(70,230,150,-1.05,1.05); x.stroke(); x.beginPath(); x.arc(390,230,150,Math.PI-1.05,Math.PI+1.05); x.stroke();
-  x.setLineDash([]);
-  if (arrows){ x.strokeStyle = '#3557e8'; x.lineWidth = 9; x.beginPath(); x.arc(230,230,205,-2.4,-0.7); x.stroke(); x.fillStyle = '#3557e8'; x.beginPath(); x.moveTo(390,90); x.lineTo(352,82); x.lineTo(378,118); x.fill(); }
-  return c;
-}
-$('#bSampleSlides').onclick = () => { S.slides = sampleSlides(); renderThumbs(); toast('샘플 슬라이드 5장을 넣었어요 (샘플 대본과 짝)'); };
-$('#bClearSlides').onclick = () => { S.slides = []; renderThumbs(); };
-function renderThumbs(){
-  $('#thumbs').innerHTML = S.slides.map((s,i) => `<img src="${s}" alt="슬라이드 ${i+1}">`).join('');
-  $('#slideInfo').textContent = S.slides.length ? `${S.slides.length}장` : '';
-}
 
 /* ---------- camera / audio ---------- */
 $('#bCam').onclick = startCamera;
@@ -1050,7 +969,7 @@ function beginRehearsal(){
   $('#topbar').classList.add('hidden'); $('#setup').classList.add('hidden'); $('#report').classList.add('hidden');
   $('#stage').classList.remove('hidden');
   if (matchMedia('(orientation: portrait)').matches && innerWidth < 1000 && !S._portraitOk) $('#rotate').classList.remove('hidden');
-  S.slideIdx = 0; renderSlide(); renderScriptPane();
+  renderScriptPane();
   $('#clock').textContent = '0:00'; $('#tfill').style.width = '0'; $('#tmsg').textContent = '준비'; $('#caption').textContent = '';
   $('#recTag').style.visibility = 'hidden';
   countdown();
@@ -1120,6 +1039,7 @@ function stopRehearsal(){
     S.videoUrl = S.chunks.length ? URL.createObjectURL(new Blob(S.chunks, { type: S.mime || 'video/webm' })) : null;
     S.report = analyze(dur);
     saveLocalRecord(S.report);
+    autoSave(S.report);
     $('#analyzing').classList.add('hidden');
     renderReport();
   });
@@ -1129,14 +1049,6 @@ function backToSetup(){
   $('#topbar').classList.remove('hidden'); $('#setup').classList.remove('hidden');
   renderMission(); scrollTo(0,0);
 }
-function renderSlide(){
-  const v = $('#slideView');
-  if (!S.slides.length){ v.innerHTML = '<div class="empty">슬라이드 없음<br><small>준비 화면에서 PDF·이미지를 올릴 수 있어요</small></div>'; $('#sIdx').textContent = '-'; $('#sCount').textContent = ''; return; }
-  v.innerHTML = `<img src="${S.slides[S.slideIdx]}" alt="">`;
-  $('#sIdx').textContent = `${S.slideIdx+1} / ${S.slides.length}`; $('#sCount').textContent = '← → 넘기기';
-}
-function moveSlide(d){ if (!S.slides.length) return; S.slideIdx = Math.max(0, Math.min(S.slides.length-1, S.slideIdx + d)); renderSlide(); }
-$('#sPrev').onclick = () => moveSlide(-1); $('#sNext').onclick = () => moveSlide(1);
 function renderScriptPane(){
   const v = $('#scrView');
   if (S.mode === 'keywords'){
@@ -1164,8 +1076,6 @@ addEventListener('keydown', e => {
     if (onStage) stopRehearsal(); else if (!$('#setup').classList.contains('hidden') && !$('#bStart').disabled) beginRehearsal();
   }
   if (!onStage) return;
-  if (e.key === 'ArrowRight'){ e.preventDefault(); moveSlide(1); }
-  if (e.key === 'ArrowLeft'){ e.preventDefault(); moveSlide(-1); }
   if (e.key === 'ArrowDown'){ e.preventDefault(); $('#scrView').scrollBy(0, 90); }
   if (e.key === 'ArrowUp'){ e.preventDefault(); $('#scrView').scrollBy(0, -90); }
   if (e.key === 'f' || e.key === 'F') toggleFull();
@@ -1611,15 +1521,15 @@ function renderReport(){
         </section>
         <section class="card refl">
           <h2>🪞 성찰하기</h2>
-          <p class="sub" style="margin-bottom:0">영상을 보고 짧게 써 보세요. ${sheetUrl() ? '선생님 시트에 함께 저장돼요.' : ''}</p>
+          <p class="sub" style="margin-bottom:0">영상을 보고 짧게 써 보세요. ${sheetUrl() ? '리허설 수치는 이미 자동 저장됐고, 성찰은 버튼을 눌러야 저장돼요.' : ''}</p>
           <label>1. 이번 리허설에서 가장 잘된 점은?</label><textarea id="rf1"></textarea>
           <label>2. 다음에 꼭 고치고 싶은 한 가지는?</label><textarea id="rf2"></textarea>
           <label>3. 친구들이 내 발표를 듣고 물어볼 것 같은 질문은?</label><textarea id="rf3"></textarea>
           <div class="ract">
-            <button class="btn pri" id="bSaveRec">${sheetUrl() ? '📤 선생님 시트에 저장' : '💾 이 기기에 저장'}</button>
+            <button class="btn pri" id="bSaveRec">${sheetUrl() ? '📤 성찰 답변 저장' : '💾 이 기기에 저장'}</button>
             <button class="btn" id="bAskCoach">💬 AI 코치에게 결과 묻기</button>
           </div>
-          <p class="note" id="saveState"></p>
+          <p class="note" id="saveState">${sheetUrl() ? (R.sheet === 'saved' ? '✓ 이번 리허설 기록이 선생님 시트에 자동으로 저장됐어요.' : '선생님 시트에 자동 저장하는 중…') : ''}</p>
         </section>
         <section class="card">
           <div class="ract" style="margin:0">
@@ -1648,21 +1558,37 @@ function renderReport(){
   }));
   $('#bAskCoach').onclick = () => { openCoach(); sendCoach('방금 리허설 결과를 봤어. 무엇부터 고치면 좋을까?', '리허설 결과'); };
 }
+function recordPayload(R, reflection){
+  return { action:'save', id: `${R.at}-${stuKey(R.student)}`, student: R.student, script: R.script, reflection: reflection || {},
+    report: { attempt: R.attempt, modeLabel: R.modeLabel, duration: R.duration, wpm: R.wpm, words: R.words, pauses: R.pauses, fillers: R.fillers,
+      coverage: R.coverage ?? '', gazeCamera: R.gazeCamera ?? '', gazeDown: R.gazeDown ?? '', smile: R.smile ?? '', hands: R.hands ?? '',
+      mission: R.mission.join(' / '), transcript: R.transcript } };
+}
+function setSaveState(msg){ const st = $('#saveState'); if (st) st.textContent = msg; }
+async function autoSave(R){
+  if (!sheetUrl()) return;
+  R.sheet = 'saving';
+  for (let k = 0; k < 2; k++){
+    try{ await callSheet(recordPayload(R)); R.sheet = 'saved'; break; }
+    catch(err){ console.error(err); R.sheet = 'failed'; await new Promise(ok => setTimeout(ok, 1500)); }
+  }
+  if (S.report === R) setSaveState(R.sheet === 'saved' ? '✓ 이번 리허설 기록이 선생님 시트에 자동으로 저장됐어요. 성찰을 쓰고 아래 버튼을 누르면 같은 줄에 함께 저장돼요.' : '⚠ 자동 저장이 안 됐어요. 아래 버튼을 누르면 다시 저장해요.');
+}
 async function saveRecord(){
   const R = S.report; if (!R) return;
   const reflection = { good: $('#rf1').value.trim(), fix: $('#rf2').value.trim(), question: $('#rf3').value.trim() };
   const all = store.get('rh_records', []); const me = all.find(r => r.at === R.at); if (me){ me.reflection = reflection; store.set('rh_records', all); }
-  const st = $('#saveState');
-  if (!sheetUrl()){ st.textContent = '✓ 이 기기에 저장했어요.'; return; }
-  const b = $('#bSaveRec'); b.disabled = true; st.textContent = '저장하는 중…';
-  const I = R.items;
+  if (!sheetUrl()){ setSaveState('✓ 이 기기에 저장했어요.'); return; }
+  if (!reflection.good && !reflection.fix && !reflection.question && R.sheet === 'saved') return toast('성찰 답변을 먼저 써 주세요');
+  const b = $('#bSaveRec'); b.disabled = true; setSaveState('저장하는 중…');
   try{
-    await callSheet({ action:'save', student: R.student, script: $('#script').value, reflection,
-      report: { attempt: R.attempt, modeLabel: R.modeLabel, duration: R.duration, wpm: R.wpm, words: R.words, pauses: R.pauses, fillers: R.fillers,
-        coverage: R.coverage ?? '', gazeCamera: R.gazeCamera ?? '', gazeDown: R.gazeDown ?? '', smile: R.smile ?? '', hands: R.hands ?? '',
-        mission: R.mission.join(' / '), transcript: R.transcript } });
-    st.textContent = '✓ 선생님 시트에 저장했어요!'; b.textContent = '✓ 저장 완료'; toast('선생님 시트에 저장했어요');
-  }catch(err){ console.error(err); st.textContent = '저장하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (이 기기에는 저장됨)'; b.disabled = false; }
+    if (R.sheet === 'saved'){
+      try{ await callSheet({ action:'reflect', id: `${R.at}-${stuKey(R.student)}`, reflection }); }
+      catch(err){ await callSheet(recordPayload(R, reflection)); }
+    } else await callSheet(recordPayload(R, reflection));
+    R.sheet = 'saved';
+    setSaveState('✓ 성찰 답변까지 선생님 시트에 저장했어요!'); b.textContent = '✓ 저장 완료'; toast('선생님 시트에 저장했어요');
+  }catch(err){ console.error(err); setSaveState('저장하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (이 기기에는 저장됨)'); b.disabled = false; }
 }
 
 /* ---------- coach ---------- */
