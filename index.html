@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hobby Q&amp;A Speech Rehearsal · 학성고 2학년</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#14213d; --ink2:#46506a; --mute:#8a93a8; --line:#e4e7ef; --bg:#f4f5f9; --card:#fff;
+  --acc:#ff6b3d; --acc2:#ffe9e0; --blue:#3557e8; --blue2:#e8edff;
+  --good:#0f9d6b; --good2:#e3f6ee; --ok:#c98500; --ok2:#fff4dc; --fix:#e0384b; --fix2:#fde7ea;
+  --stage:#0c111c; --stage2:#151c2b; --stage3:#222b3e;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.hidden{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:11px;background:#fff;border:1px solid var(--line);font-weight:600;font-size:14px;white-space:nowrap;transition:.15s}
+.btn:hover{border-color:#c9cfdc;background:#fafbfd}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.pri{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.pri:hover{background:#22325a}
+.btn.acc{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.acc:hover{filter:brightness(1.05)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.sm{padding:6px 10px;font-size:13px;border-radius:9px}
+.btn.lg{padding:15px 24px;font-size:17px;border-radius:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:99px;background:var(--blue2);color:var(--blue);font-size:13px;font-weight:600}
+.chip.o{background:var(--acc2);color:#c4431a}
+.chip.g{background:var(--good2);color:var(--good)}
+.kbd{display:inline-block;min-width:22px;padding:1px 6px;border-radius:6px;border:1px solid var(--line);border-bottom-width:2px;background:#fff;font-size:12px;font-weight:700;text-align:center;color:var(--ink2)}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px 22px;background:rgba(244,245,249,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--ink);display:grid;place-items:center;color:#fff}
+.brand b{display:block;font-size:16px;letter-spacing:-.2px}
+.brand small{display:block;font-size:12px;color:var(--mute);margin-top:-2px}
+
+/* ---------- setup ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:22px}
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:6px 0 18px}
+.hero h1{margin:0 0 8px;font-size:28px;letter-spacing:-.6px;line-height:1.25}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .chips{display:flex;flex-wrap:wrap;gap:7px}
+.steps{display:flex;gap:8px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink2)}
+.step i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:12px}
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}
+.col{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.card h2{margin:0 0 3px;font-size:16px;display:flex;align-items:center;gap:8px}
+.card h2 .n{width:22px;height:22px;border-radius:7px;background:var(--acc2);color:#c4431a;display:grid;place-items:center;font-size:12px}
+.card .sub{margin:0 0 14px;color:var(--mute);font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--ink2);font-weight:600}
+.field select,.field input{padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:15px;font-weight:500;min-width:90px}
+.field input.name{min-width:150px}
+.field select:disabled{background:#f4f5f9;color:var(--ink2)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode{position:relative;text-align:left;padding:14px;border-radius:14px;border:1.5px solid var(--line);background:#fff}
+.mode b{display:block;font-size:15px}
+.mode span{display:block;font-size:13px;color:var(--ink2);margin-top:3px}
+.mode .tag{position:absolute;top:12px;right:12px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--good2);color:var(--good)}
+.mode.on{border-color:var(--ink);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
+textarea.script{width:100%;min-height:230px;resize:vertical;padding:14px;border-radius:12px;border:1px solid var(--line);font-size:15.5px;line-height:1.7;font-family:inherit;background:#fcfcfe}
+textarea.script:focus,.field input:focus,.field select:focus{outline:2px solid #c6d1ff;border-color:var(--blue)}
+.meter-line{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:10px 0 4px;font-size:13px;color:var(--ink2)}
+.meter-line b{color:var(--ink)}
+.wbar{position:relative;flex:1;min-width:160px;height:8px;border-radius:9px;background:#eef0f5;overflow:hidden}
+.wbar .zone{position:absolute;top:0;bottom:0;background:var(--good2);border-left:1px solid #9bd8bf;border-right:1px solid #9bd8bf}
+.wbar .fill{position:absolute;top:0;bottom:0;left:0;background:var(--ink);border-radius:9px;opacity:.85}
+.tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}
+.flow div{padding:8px 6px;border-radius:10px;background:#f4f5f9;font-size:12px;text-align:center;color:var(--mute);font-weight:600}
+.flow div.y{background:var(--good2);color:var(--good)}
+.note{font-size:12.5px;color:var(--mute);margin-top:8px}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 2px}
+.thumbs img{height:62px;border-radius:7px;border:1px solid var(--line);flex:none;background:#fff}
+.drop{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border:1.5px dashed #cdd3e0;border-radius:12px;color:var(--ink2);font-size:14px;cursor:pointer;background:#fbfcfe;text-align:center}
+.drop:hover{border-color:var(--blue);color:var(--blue)}
+.cam{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#0f1522;display:grid;place-items:center}
+.cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.cam .ph{position:absolute;color:#8b95ab;font-size:14px;text-align:center;padding:20px}
+.guide{position:absolute;inset:0;pointer-events:none}
+.guide .frame{position:absolute;left:22%;right:22%;top:9%;bottom:0;border:2px dashed rgba(255,255,255,.45);border-bottom:0;border-radius:46% 46% 0 0/30% 30% 0 0}
+.guide .eye{position:absolute;left:8%;right:8%;top:33%;border-top:1.5px solid rgba(255,214,102,.75)}
+.guide .eye span{position:absolute;right:0;top:-20px;font-size:11px;color:#ffd666;font-weight:600}
+.guide .lens{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:700;color:#fff;background:rgba(255,107,61,.9);padding:3px 10px;border-radius:99px}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.ck{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;background:#f4f5f9;font-size:13px;font-weight:600;color:var(--mute)}
+.ck i{width:18px;height:18px;border-radius:50%;border:2px solid #c7cdd9;flex:none;display:grid;place-items:center;font-style:normal;font-size:11px}
+.ck.y{background:var(--good2);color:var(--good)}
+.ck.y i{border-color:var(--good);background:var(--good);color:#fff}
+.vol{height:8px;border-radius:9px;background:#eef0f5;overflow:hidden;margin-top:10px}
+.vol div{height:100%;width:0;background:linear-gradient(90deg,#4cc38a,#0f9d6b);transition:width .08s}
+.status{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.status .cnt{font-size:13px;font-weight:700;padding:3px 10px;border-radius:99px;background:#f4f5f9;color:var(--ink2)}
+.status .cnt.y{background:var(--good2);color:var(--good)}
+.mission{border:1.5px solid #ffd2c2;background:linear-gradient(180deg,#fff7f3,#fff)}
+.mission h2{color:#c4431a}
+.mission ul{margin:6px 0 0;padding-left:20px;font-size:14.5px}
+.start{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.start .btn{width:100%}
+.start small{color:var(--mute);font-size:12.5px;text-align:center}
+.warn{padding:10px 12px;border-radius:11px;background:var(--ok2);color:#8a5b00;font-size:13px;margin-top:10px}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;z-index:40;background:var(--stage);color:#e8ecf5;display:flex;flex-direction:column}
+.sbar{display:flex;align-items:center;gap:16px;padding:12px 18px;background:var(--stage2);border-bottom:1px solid #1f2738}
+.rec{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:1px;font-size:14px;color:#ff5a5f}
+.rec i{width:11px;height:11px;border-radius:50%;background:#ff5a5f;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.25}}
+.clock{font-variant-numeric:tabular-nums;font-size:30px;font-weight:800;letter-spacing:-.5px;min-width:90px}
+.tbar{flex:1;max-width:520px}
+.tbar .track{position:relative;height:10px;border-radius:9px;background:var(--stage3);overflow:hidden}
+.tbar .zone{position:absolute;top:0;bottom:0;left:60%;width:20%;background:rgba(15,157,107,.35)}
+.tbar .fill{position:absolute;top:0;bottom:0;left:0;width:0;background:#8fa3c7;border-radius:9px}
+.tbar .lbl{display:flex;justify-content:space-between;font-size:11px;color:#7f8aa3;margin-top:4px}
+.tmsg{font-size:14px;font-weight:700;min-width:150px}
+.sbar .sp{margin-left:auto;display:flex;gap:8px}
+.sbtn{padding:9px 14px;border-radius:11px;background:var(--stage3);color:#e8ecf5;font-weight:700;font-size:14px}
+.sbtn:hover{background:#2c3750}
+.sbtn.stop{background:#ff5a5f;color:#fff}
+.sbody{flex:1;min-height:0;display:grid;grid-template-columns:1.1fr 1fr .95fr;gap:12px;padding:12px}
+.pane{position:relative;background:var(--stage2);border:1px solid #1f2738;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.pane .ph{font-size:12px;font-weight:700;letter-spacing:.5px;color:#7f8aa3;padding:10px 14px;border-bottom:1px solid #1f2738;display:flex;justify-content:space-between;align-items:center}
+.slide{flex:1;display:grid;place-items:center;padding:12px;min-height:0}
+.slide img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.slide .empty{color:#5f6a82;text-align:center;font-size:14px}
+.snav{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px;border-top:1px solid #1f2738;font-size:13px;color:#9aa5bd}
+.snav button{width:34px;height:30px;border-radius:9px;background:var(--stage3);color:#fff;font-size:17px}
+.me{flex:1;position:relative;background:#000;min-height:0}
+.me video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.live{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pill{padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.55);font-size:12px;font-weight:700;color:#dfe5f2;backdrop-filter:blur(4px)}
+.pill.g{color:#7ee2b8}.pill.o{color:#ffd27a}
+.caption{position:absolute;left:12px;right:12px;bottom:44px;font-size:13px;color:rgba(255,255,255,.7);text-shadow:0 1px 3px #000;max-height:2.9em;overflow:hidden}
+.scr{flex:1;overflow-y:auto;padding:16px 18px 40vh;font-size:var(--fs,21px);line-height:1.75;color:#eef2fa;scroll-behavior:smooth;white-space:pre-wrap;word-break:keep-all}
+.scr.kw{white-space:normal}
+.scr.kw div{padding:9px 12px;margin-bottom:8px;border-radius:10px;background:var(--stage3);font-weight:700}
+.fs{display:flex;gap:4px}
+.fs button{width:26px;height:22px;border-radius:6px;background:var(--stage3);color:#fff;font-weight:800;font-size:12px}
+.count{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(8,12,20,.72);text-align:center}
+.count b{display:block;font-size:130px;line-height:1;font-weight:900;color:#fff}
+.count span{display:block;margin-top:14px;font-size:18px;font-weight:700;color:#ffd666}
+.hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:12px;color:#5f6a82;white-space:nowrap}
+
+/* ---------- analyzing ---------- */
+#analyzing{position:fixed;inset:0;z-index:45;background:var(--stage);color:#e8ecf5;display:grid;place-items:center;text-align:center}
+.spin{width:54px;height:54px;border-radius:50%;border:5px solid #263048;border-top-color:var(--acc);animation:sp 0.9s linear infinite;margin:0 auto 22px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.alist{margin-top:16px;color:#8b95ab;font-size:14px;line-height:2}
+.alist .d{color:#7ee2b8}
+
+/* ---------- report ---------- */
+.rhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin:6px 0 16px}
+.rhead h1{margin:0;font-size:26px;letter-spacing:-.5px}
+.rhead p{margin:4px 0 0;color:var(--ink2)}
+.sumline{display:flex;gap:8px;flex-wrap:wrap}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.m{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 15px;display:flex;flex-direction:column;gap:3px;position:relative}
+.m .k{font-size:12.5px;font-weight:700;color:var(--ink2)}
+.m .v{font-size:27px;font-weight:800;letter-spacing:-.6px;font-variant-numeric:tabular-nums}
+.m .v small{font-size:14px;font-weight:600;color:var(--mute);margin-left:2px}
+.m .t{font-size:12.5px;color:var(--ink2);line-height:1.45}
+.m .b{position:absolute;top:13px;right:13px;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px}
+.m.good .b{background:var(--good2);color:var(--good)}
+.m.ok .b{background:var(--ok2);color:var(--ok)}
+.m.fix .b{background:var(--fix2);color:var(--fix)}
+.m.na .b{background:#f0f1f5;color:var(--mute)}
+.m.good{border-top:3px solid var(--good)}.m.ok{border-top:3px solid #f0b43c}.m.fix{border-top:3px solid var(--fix)}.m.na{border-top:3px solid #d6dae3}
+.r2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:18px;align-items:start}
+.tl{display:flex;height:26px;border-radius:8px;overflow:hidden;background:#eef0f5;margin:10px 0 6px}
+.tl div{height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ink2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+video.play{width:100%;border-radius:12px;background:#000;max-height:360px}
+.trans{font-size:14.5px;line-height:1.8;max-height:260px;overflow:auto;padding:12px 14px;background:#fafbfd;border:1px solid var(--line);border-radius:12px}
+.trans mark{background:#ffe1d4;color:#b4380f;border-radius:4px;padding:0 3px}
+.missed{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.missed span{font-size:12.5px;padding:2px 8px;border-radius:7px;background:var(--fix2);color:var(--fix);font-weight:600}
+.refl label{display:block;font-size:13.5px;font-weight:700;margin:12px 0 5px}
+.refl textarea{width:100%;min-height:56px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);resize:vertical;font-size:14.5px;font-family:inherit}
+.next{background:var(--ink);color:#fff;border:0}
+.next h2{color:#fff}
+.next ol{margin:8px 0 0;padding-left:20px;font-size:15px;line-height:1.7}
+.next .sub{color:#aab4cc}
+.ract{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+
+/* ---------- drawer & modal ---------- */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(12,17,28,.45)}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(440px,100%);background:#fff;display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.15)}
+.dh{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}
+.dh b{font-size:16px}
+.dh p{margin:2px 0 0;font-size:12.5px;color:var(--mute)}
+.dh .x{margin-left:auto;font-size:22px;line-height:1;color:var(--mute);padding:2px 6px}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f7f8fb}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.msg.mine{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.msg.coach{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.sys{align-self:center;background:transparent;color:var(--mute);font-size:12.5px;text-align:center}
+.quick{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px 0}
+.quick button{font-size:12.5px;padding:5px 10px;border-radius:99px;background:var(--blue2);color:var(--blue);font-weight:600}
+.din{display:flex;gap:8px;padding:12px 14px 16px}
+.din textarea{flex:1;resize:none;height:46px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);font-family:inherit;font-size:14.5px}
+.modal{position:fixed;z-index:61;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,94vw);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:22px 24px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.modal h2{margin:0 0 4px;font-size:19px}
+.modal .x{position:absolute;top:14px;right:16px;font-size:24px;color:var(--mute)}
+.modal h3{font-size:15px;margin:20px 0 6px}
+.modal ol{padding-left:20px;font-size:14px;line-height:1.75;margin:6px 0}
+.modal code{font-size:12.5px;background:#f2f4f8;padding:1px 6px;border-radius:5px}
+.modal input.url{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);font-size:13.5px}
+.codebox{width:100%;height:180px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0f1522;color:#d6def0}
+table.hist{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px}
+table.hist th{text-align:left;font-size:12px;color:var(--mute);font-weight:700;border-bottom:1px solid var(--line);padding:7px 6px}
+table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numeric:tabular-nums}
+.spark{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.spark .card{padding:12px 14px}
+.spark svg{width:100%;height:70px;display:block}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:90vw}
+#rotate{position:fixed;inset:0;z-index:80;background:var(--stage);color:#fff;display:grid;place-items:center;text-align:center;padding:30px}
+#rotate .ic{font-size:60px;margin-bottom:10px;display:inline-block;animation:rot 2s ease-in-out infinite}
+@keyframes rot{50%{transform:rotate(-90deg)}}
+
+@media (max-width:980px){
+  .grid,.r2{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .sbody{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  .sbody .pane.p-me{grid-column:1/3}
+  .steps{display:none}
+}
+@media (orientation:portrait) and (max-width:980px){
+  .sbody{grid-template-columns:1fr;grid-template-rows:1.1fr 1fr 1fr}
+  .sbody .pane.p-me{grid-column:auto;order:-1}
+  .tbar{display:none}
+}
+@media (max-width:560px){ .modes,.checks{grid-template-columns:1fr} .flow{grid-template-columns:repeat(3,1fr)} .hero h1{font-size:23px} .top{padding:10px 14px} .wrap{padding:14px} .brand small{display:none} }
+</style>
+</head>
+<body>
+
+<header class="top" id="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
+    </div>
+    <div><b>Hobby Q&amp;A Speech · Rehearsal</b><small>학성고등학교 2학년 영어 말하기 수행평가 리허설</small></div>
+  </div>
+  <button class="btn sm" id="bHistory">📊 내 기록</button>
+  <button class="btn sm" id="bCoach">💬 AI 코치</button>
+  <button class="btn sm ghost" id="bTeacher">⚙︎ 선생님 설정</button>
+</header>
+
+<!-- ===================== SETUP ===================== -->
+<main id="setup" class="wrap">
+  <section class="hero">
+    <div>
+      <h1>내 취미 속 <em>궁금증</em> 하나,<br>영어로 쉽게 설명해 볼까요?</h1>
+      <div class="chips">
+        <span class="chip">🎯 취미와 관련한 궁금증 설명하기</span>
+        <span class="chip o">⏱ 1분 30초 ~ 2분</span>
+        <span class="chip g">📄 실제 평가에서 대본 보고 발표 가능</span>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><i>1</i>대본 쓰기</div>
+      <div class="step"><i>2</i>카메라·마이크 확인</div>
+      <div class="step"><i>3</i>리허설 → 리포트</div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="col">
+      <section class="card">
+        <h2><span class="n">1</span>학생 정보</h2>
+        <p class="sub">기록이 내 이름으로 저장돼요.</p>
+        <div class="row">
+          <label class="field">학년<select disabled><option>2학년</option></select></label>
+          <label class="field">반<select id="cls"></select></label>
+          <label class="field">번호<select id="num"></select></label>
+          <label class="field">이름<input id="name" class="name" placeholder="이름" maxlength="10" autocomplete="off"></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="n">2</span>리허설 방식</h2>
+        <p class="sub">실제 평가는 대본을 봐도 감점이 없어요. 1차로 실전처럼 연습하고, 여유가 있으면 2차로 키워드만 보며 연습해 보세요.</p>
+        <div class="modes">
+          <button class="mode on" data-mode="script"><span class="tag">실전과 같음</span><b>1차 · 대본 보며</b><span>대본 전체를 보면서 발표해요. 시간·속도·대본 반영을 확인해요.</span></button>
+          <button class="mode" data-mode="keywords"><span class="tag" style="background:var(--blue2);color:var(--blue)">선택</span><b>2차 · 키워드만 보며</b><span>키워드 메모만 보고 말해요. 화면(청중)을 보는 시간이 늘어나요.</span></button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="n">3</span>발표 대본</h2>
+        <p class="sub">취미 소개 → 궁금증 → 이유·원리 설명 → 예시 → 정리 순서로 쓰면 듣는 사람이 따라오기 쉬워요. (필수 단계는 아니에요)</p>
+        <textarea id="script" class="script" spellcheck="true" placeholder="Hi everyone. My hobby is ... I was curious about ... Why ...? Today I will explain ..."></textarea>
+        <div class="meter-line">
+          <span>단어 <b id="wc">0</b>개</span>
+          <span>예상 시간 <b id="est">0:00</b></span>
+          <div class="wbar" title="보통 속도(분당 130단어) 기준, 초록 구간이 1:30~2:00"><div class="zone" id="wzone"></div><div class="fill" id="wfill"></div></div>
+          <span id="wmsg" style="font-weight:700"></span>
+        </div>
+        <div class="flow" id="flow"></div>
+        <div class="tools">
+          <button class="btn sm" id="bSave">💾 대본 저장</button>
+          <button class="btn sm" id="bSample">샘플 대본</button>
+          <button class="btn sm" id="bPolish">✨ AI 코치에게 대본 보여주기</button>
+          <span id="saved" class="note" style="margin:0 0 0 auto;align-self:center"></span>
+        </div>
+        <div id="kwBox" class="hidden" style="margin-top:14px">
+          <div class="row" style="justify-content:space-between"><b style="font-size:14px">🔑 키워드 메모 (2차용 · 한 줄에 하나)</b><button class="btn sm" id="bKw">대본에서 자동 추출</button></div>
+          <textarea id="kw" class="script" style="min-height:130px;margin-top:8px" placeholder="my hobby – baseball&#10;question: why curve?&#10;spin – 30 times per second"></textarea>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2><span class="n">4</span>슬라이드 <span style="font-weight:500;color:var(--mute);font-size:13px">(선택)</span></h2>
+        <p class="sub">PDF·이미지를 올리면 발표 화면 왼쪽에 보여요. PPT는 <b>PDF로 저장해서 올리면</b> 디자인이 그대로 보여요.</p>
+        <label class="drop" id="drop"><input type="file" id="file" accept=".pdf,.pptx,image/*" multiple hidden>📎 PDF · PPTX · 이미지 첨부 (여러 장 가능)</label>
+        <div class="thumbs" id="thumbs"></div>
+        <div class="tools"><button class="btn sm" id="bSampleSlides">샘플 슬라이드</button><button class="btn sm" id="bClearSlides">슬라이드 지우기</button><span class="note" id="slideInfo" style="margin:0;align-self:center"></span></div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="card">
+        <div class="status"><h2 style="margin:0"><span class="n">5</span>카메라 · 마이크 확인</h2><span class="cnt" id="ckCount">0/3 준비됨</span></div>
+        <div class="cam" id="camBox">
+          <video id="pv" playsinline muted autoplay></video>
+          <div class="guide"><div class="frame"></div><div class="eye"><span>눈높이</span></div><div class="lens">● 렌즈를 봐요</div></div>
+          <div class="ph" id="camPh">허리 위까지 보이게 앉고,<br>아래 버튼으로 카메라를 켜 주세요.</div>
+        </div>
+        <div class="vol"><div id="volFill"></div></div>
+        <div class="checks">
+          <div class="ck" id="ck1"><i>✓</i>카메라 켜짐</div>
+          <div class="ck" id="ck2"><i>✓</i>얼굴 보임</div>
+          <div class="ck" id="ck3"><i>✓</i>목소리 들림</div>
+        </div>
+        <div class="tools"><button class="btn pri" id="bCam">📷 카메라 켜기</button><span class="note" id="visionInfo" style="margin:0;align-self:center"></span></div>
+        <div class="warn hidden" id="srWarn">이 브라우저는 영어 음성 인식을 지원하지 않아서 <b>말 속도·군말·대본 반영</b>은 측정되지 않아요. Chrome(크롬)에서 열면 모두 측정돼요.</div>
+      </section>
+
+      <section class="card mission hidden" id="missionCard">
+        <h2>🎯 지난 리허설에서 받은 미션</h2>
+        <ul id="missionList"></ul>
+      </section>
+
+      <section class="card start">
+        <button class="btn acc lg" id="bStart" disabled>● 리허설 시작</button>
+        <small id="startHint">카메라를 켜면 시작할 수 있어요 · <span class="kbd">Space</span> 시작/종료 · <span class="kbd">←</span><span class="kbd">→</span> 슬라이드 · <span class="kbd">↑</span><span class="kbd">↓</span> 대본 · <span class="kbd">F</span> 전체화면</small>
+      </section>
+
+      <section class="card" style="font-size:13px;color:var(--ink2)">
+        <b style="font-size:14px;color:var(--ink)">🔒 영상은 이 기기 안에만 있어요</b>
+        <p style="margin:6px 0 0">녹화 영상, 시선·표정 분석은 모두 이 기기 안에서 처리돼요. 선생님 시트가 연결되어 있으면 <b>대본, 리허설 수치, 성찰 답변, AI 코치 대화</b>만 선생님께 저장돼요. 영상은 보내지 않아요.</p>
+        <p style="margin:6px 0 0" id="sheetState"></p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== STAGE ===================== -->
+<section id="stage" class="hidden">
+  <div class="sbar">
+    <div class="rec" id="recTag"><i></i>REC</div>
+    <div class="clock" id="clock">0:00</div>
+    <div class="tbar"><div class="track"><div class="zone"></div><div class="fill" id="tfill"></div></div><div class="lbl"><span>0:00</span><span style="margin-left:52%">1:30</span><span>2:00</span><span>2:30</span></div></div>
+    <div class="tmsg" id="tmsg">시작!</div>
+    <div class="sp"><button class="sbtn" id="bFull">⛶ 전체화면</button><button class="sbtn stop" id="bStop">■ 발표 종료</button></div>
+  </div>
+  <div class="sbody">
+    <div class="pane p-slide">
+      <div class="ph"><span>SLIDE</span><span id="sCount"></span></div>
+      <div class="slide" id="slideView"></div>
+      <div class="snav"><button id="sPrev">‹</button><span id="sIdx">-</span><button id="sNext">›</button></div>
+    </div>
+    <div class="pane p-me">
+      <div class="ph"><span>ME · 내 모습</span><span>● 렌즈를 봐요</span></div>
+      <div class="me">
+        <video id="sv" playsinline muted autoplay></video>
+        <div class="guide"><div class="frame"></div><div class="eye"><span>눈높이</span></div></div>
+        <div class="caption" id="caption"></div>
+        <div class="live"><span class="pill" id="pGaze">시선 -</span><span class="pill" id="pVol">🎙 -</span><span class="pill" id="pWpm">속도 -</span></div>
+        <div class="count hidden" id="countdown"><div><b id="countNum">3</b><span>카메라 렌즈를 봐 주세요</span></div></div>
+      </div>
+    </div>
+    <div class="pane p-script">
+      <div class="ph"><span id="scrTitle">SCRIPT</span><span class="fs"><button id="fsDown">A-</button><button id="fsUp">A+</button></span></div>
+      <div class="scr" id="scrView"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ANALYZING ===================== -->
+<section id="analyzing" class="hidden">
+  <div>
+    <div class="spin"></div>
+    <div style="font-size:22px;font-weight:800">리허설을 분석하고 있어요</div>
+    <div class="alist" id="alist"></div>
+  </div>
+</section>
+
+<!-- ===================== REPORT ===================== -->
+<main id="report" class="wrap hidden"></main>
+
+<!-- ===================== COACH DRAWER ===================== -->
+<div class="scrim hidden" id="scrim"></div>
+<aside class="drawer hidden" id="coach" aria-label="AI 코치">
+  <div class="dh"><div><b>💬 AI 발표 코치</b><p>답을 바로 주기보다 같이 생각해요 · 대화는 선생님께 기록돼요</p></div><button class="x" data-close>×</button></div>
+  <div class="msgs" id="msgs"></div>
+  <div class="quick" id="quick">
+    <button>내 대본 흐름 봐 줘</button><button>1분 30초를 넘기려면?</button><button>더 쉬운 표현으로 바꾸고 싶어</button><button>이번 리허설 결과, 뭘 먼저 고칠까?</button>
+  </div>
+  <div class="din"><textarea id="cin" placeholder="궁금한 점을 써 보세요 (Enter 보내기)"></textarea><button class="btn pri" id="cSend">보내기</button></div>
+</aside>
+
+<!-- ===================== HISTORY MODAL ===================== -->
+<div class="modal hidden" id="history"><button class="x" data-close>×</button><div id="histBody"></div></div>
+
+<!-- ===================== TEACHER MODAL ===================== -->
+<div class="modal hidden" id="teacher">
+  <button class="x" data-close>×</button>
+  <h2>⚙︎ 선생님 설정 · 구글 시트 연결</h2>
+  <p style="margin:0;color:var(--ink2);font-size:14px">연결하면 학생들의 <b>대본·리허설 수치·성찰 답변·AI 코치 대화</b>가 선생님 구글 시트에 쌓이고, AI 코치가 켜져요. 연결하지 않아도 앱은 이 기기 안에서 모두 동작해요.</p>
+  <h3>Apps Script 웹 앱 주소</h3>
+  <input class="url" id="sheetUrl" placeholder="https://script.google.com/macros/s/..../exec">
+  <div class="tools"><button class="btn sm pri" id="bSheetSave">저장 & 연결 테스트</button><button class="btn sm" id="bSheetClear">연결 해제</button><span class="note" id="sheetTest" style="margin:0;align-self:center"></span></div>
+  <h3>학생에게 보낼 링크</h3>
+  <p style="margin:0;font-size:13.5px;color:var(--ink2)">이 링크로 들어온 학생은 시트가 자동으로 연결돼요. 학생은 따로 입력할 필요가 없어요.</p>
+  <input class="url" id="stuLink" readonly style="margin-top:6px;background:#f7f8fb">
+  <div class="tools"><button class="btn sm" id="bCopyLink">링크 복사</button></div>
+  <h3>처음 한 번만: 연결 방법</h3>
+  <ol>
+    <li>구글 드라이브에서 <b>새 구글 시트</b>를 만들어요. (예: "2학년 말하기 리허설")</li>
+    <li>시트 메뉴 <b>확장 프로그램 → Apps Script</b>를 열고, 원래 있던 코드를 지운 뒤 아래 코드를 <b>전부 붙여넣고 저장</b>해요.</li>
+    <li>(AI 코치를 쓸 때) <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 <b>API 키</b>를 무료로 만들어요. Apps Script 왼쪽 <b>⚙︎ 프로젝트 설정 → 스크립트 속성 → 속성 추가</b>에서 이름 <code>GEMINI_API_KEY</code>, 값에 키를 넣고 저장해요.</li>
+    <li>오른쪽 위 <b>배포 → 새 배포</b> → 톱니바퀴에서 <b>웹 앱</b> 선택 → 실행: <b>나</b>, 액세스 권한: <b>모든 사용자</b> → 배포. (처음엔 권한 허용 창이 떠요. "고급 → 안전하지 않음으로 이동"을 눌러 허용해요.)</li>
+    <li>나온 <b>웹 앱 URL</b>을 위 칸에 붙여넣고 <b>저장 & 연결 테스트</b>를 누르면 끝! 시트에 "리허설기록", "코치대화" 탭이 자동으로 생겨요.</li>
+  </ol>
+  <p style="font-size:12.5px;color:var(--mute);margin:4px 0 8px">코드를 고친 뒤에는 <b>배포 → 배포 관리 → ✏︎ → 버전: 새 버전</b>으로 다시 배포해야 반영돼요.</p>
+  <textarea class="codebox" id="gsBox" readonly></textarea>
+  <div class="tools"><button class="btn sm pri" id="bCopyCode">코드 복사</button></div>
+</div>
+
+<div id="rotate" class="hidden"><div><div class="ic">📱</div><h2 style="margin:0 0 8px">태블릿을 가로로 돌려 주세요</h2><p style="color:#9aa5bd;margin:0 0 18px">슬라이드 · 내 모습 · 대본이 한 화면에 보여요.</p><button class="btn" id="bPortrait">세로로 그냥 진행</button></div></div>
+<div class="toast hidden" id="toast"></div>
+
+<script type="text/plain" id="gsCode">/**
+ * 학성고 2학년 영어 말하기 리허설 — 선생님용 구글 시트 연결 코드
+ * ---------------------------------------------------------------
+ * 1) 구글 시트에서 [확장 프로그램] → [Apps Script]를 열고 이 코드를 전부 붙여넣기
+ * 2) 왼쪽 톱니바퀴 [프로젝트 설정] → [스크립트 속성] → 속성 추가
+ *      속성: GEMINI_API_KEY   값: (aistudio.google.com/apikey 에서 받은 키)
+ *    ※ AI 코치를 안 쓰려면 이 단계는 건너뛰어도 기록 저장은 됩니다.
+ * 3) [배포] → [새 배포] → 유형: 웹 앱 → 실행: 나 / 액세스 권한: 모든 사용자 → 배포
+ * 4) 나온 웹 앱 URL(https://script.google.com/macros/s/.../exec)을 리허설 앱의
+ *    [선생님 설정]에 붙여넣기
+ * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필 → 버전: 새 버전 으로 다시 배포해야 반영됩니다.
+ */
+
+// 모델 이름: 'gemini-flash-latest'는 항상 최신 Flash 모델을 가리킵니다.
+const GEMINI_MODEL = 'gemini-flash-latest';
+
+const RECORD_SHEET = '리허설기록';
+const COACH_SHEET = '코치대화';
+
+const RECORD_HEADERS = [
+  '저장 시각', '반', '번호', '이름', '회차', '방식',
+  '발표 시간(초)', '말 속도(WPM)', '단어 수', '긴 멈춤(회)', '군말(회)',
+  '대본/키워드 반영(%)', '화면 보기(%)', '대본 보기(%)', '미소(%)', '손 제스처(%)',
+  '다음 미션', '성찰1: 잘된 점', '성찰2: 고칠 점', '성찰3: 청중 질문', '대본', '인식된 말'
+];
+const COACH_HEADERS = ['시각', '반', '번호', '이름', '종류', '학생 메시지', 'AI 코치 답변'];
+
+const COACH_SYSTEM = [
+  '너는 한국 고등학교 2학년 영어 말하기 수행평가를 돕는 친절한 발표 코치다.',
+  '과제: "내 취미와 관련된 궁금증 하나를 골라 영어로 설명하는 말하기", 1분 30초~2분, 대본을 보고 발표해도 감점 없음.',
+  '원칙:',
+  '- 학생 대신 대본을 써 주지 않는다. 한두 문장 예시는 괜찮지만 전체를 고쳐 쓰지 않는다.',
+  '- 먼저 짧게 칭찬할 점 1가지를 말하고, 학생이 스스로 생각하도록 질문을 1~2개 던진다.',
+  '- 고칠 점은 한 번에 최대 2가지만, 구체적으로(어느 문장, 어떻게) 말한다.',
+  '- 고2 수준의 쉬운 영어 표현을 권한다. 어려운 단어는 쉬운 말로 바꾸도록 돕는다.',
+  '- 설명 말하기의 흐름(취미 소개 → 궁금증 질문 → 이유/원리 설명과 예시 → 정리)을 참고 기준으로 쓴다.',
+  '- 리허설 수치(시간, 속도, 시선 등)가 주어지면 그것을 근거로 다음 연습 방법을 제안한다.',
+  '- 한국어로 답하고, 영어 표현은 따옴표로 보여 준다. 답은 6문장 이내로 짧게.',
+  '- 발표와 관계없는 요청에는 정중하게 과제 이야기로 돌아오게 한다.'
+].join('\n');
+
+function doGet() {
+  return json_({ ok: true, msg: '리허설 시트가 연결되어 있어요.' });
+}
+
+function doPost(e) {
+  try {
+    const d = JSON.parse(e.postData.contents);
+    if (d.action === 'ping') {
+      return json_({ ok: true, coach: !!PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY') });
+    }
+    if (d.action === 'save') {
+      saveRecord_(d);
+      return json_({ ok: true });
+    }
+    if (d.action === 'coach') {
+      const reply = coach_(d);
+      logCoach_(d, reply);
+      return json_({ ok: true, reply: reply });
+    }
+    return json_({ ok: false, error: '알 수 없는 요청' });
+  } catch (err) {
+    return json_({ ok: false, error: String(err) });
+  }
+}
+
+function sheet_(name, headers) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(name);
+  if (!sh) {
+    sh = ss.insertSheet(name);
+    sh.appendRow(headers);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#eef2ff');
+  }
+  return sh;
+}
+
+function saveRecord_(d) {
+  const s = d.student || {}, r = d.report || {}, f = d.reflection || {};
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    sheet_(RECORD_SHEET, RECORD_HEADERS).appendRow([
+      new Date(), s.cls, s.num, s.name, r.attempt, r.modeLabel,
+      r.duration, r.wpm, r.words, r.pauses, r.fillers,
+      r.coverage, r.gazeCamera, r.gazeDown, r.smile, r.hands,
+      r.mission, f.good, f.fix, f.question, clip_(d.script), clip_(r.transcript)
+    ]);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function coach_(d) {
+  const key = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+  if (!key) return '(선생님이 아직 AI 코치 키를 설정하지 않았어요. 기록 저장은 정상적으로 됩니다.)';
+
+  const ctx = [
+    '[학생 대본]', d.script || '(아직 없음)',
+    '', '[최근 리허설 결과]', d.reportSummary || '(아직 없음)',
+    '', '[지난 미션]', d.mission || '(없음)'
+  ].join('\n');
+
+  const contents = [{ role: 'user', parts: [{ text: '다음은 참고 자료야.\n' + ctx }] },
+                    { role: 'model', parts: [{ text: '확인했어요. 질문해 주세요.' }] }];
+  (d.messages || []).slice(-12).forEach(function (m) {
+    contents.push({ role: m.role === 'coach' ? 'model' : 'user', parts: [{ text: String(m.text).slice(0, 4000) }] });
+  });
+
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent?key=' + key;
+  const res = UrlFetchApp.fetch(url, {
+    method: 'post',
+    contentType: 'application/json',
+    muteHttpExceptions: true,
+    payload: JSON.stringify({
+      systemInstruction: { parts: [{ text: COACH_SYSTEM }] },
+      contents: contents,
+      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+    })
+  });
+  const body = JSON.parse(res.getContentText());
+  if (res.getResponseCode() !== 200) {
+    return '(AI 코치 연결 오류: ' + ((body.error && body.error.message) || res.getResponseCode()) + ')';
+  }
+  const parts = (body.candidates && body.candidates[0] && body.candidates[0].content && body.candidates[0].content.parts) || [];
+  const text = parts.map(function (p) { return p.text || ''; }).join('').trim();
+  return text || '(답변을 만들지 못했어요. 질문을 조금 바꿔서 다시 보내 볼까요?)';
+}
+
+function logCoach_(d, reply) {
+  const s = d.student || {};
+  const msgs = d.messages || [];
+  const last = msgs.length ? msgs[msgs.length - 1].text : '';
+  sheet_(COACH_SHEET, COACH_HEADERS).appendRow([new Date(), s.cls, s.num, s.name, d.kind || '대화', clip_(last), clip_(reply)]);
+}
+
+function clip_(t) { t = String(t || ''); return t.length > 45000 ? t.slice(0, 45000) : t; }
+
+function json_(o) {
+  return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+}
+</script>
+
+<script type="module">
+/* ============================================================
+   설정: 선생님이 주소를 여기에 직접 넣어 두면 모든 학생에게 자동 연결돼요.
+   (비워 두면 [선생님 설정]이나 ?sheet= 링크로 연결)
+   ============================================================ */
+const SHEET_URL = '';
+
+const TARGET_MIN = 90, TARGET_MAX = 120, HARD_STOP = 180, WPM_BASE = 130;
+const MP_VER = '0.10.14';
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch{ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch{ return false; } }
+};
+function toast(msg, ms=2600){ const t=$('#toast'); t.textContent=msg; t.classList.remove('hidden'); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.add('hidden'), ms); }
+
+/* ---------- state ---------- */
+const S = {
+  mode: 'script', slides: [], slideIdx: 0,
+  stream: null, audioCtx: null, analyser: null, buf: null,
+  vision: { face: null, hand: null, ready: false, loading: false, failed: false },
+  recording: false, counting: false, t0: 0, recorder: null, chunks: [], mime: '',
+  recog: null, finals: [], interim: '',
+  vol: [], gaze: [], hands: [], base: { yaw: 0, pitch: 0 }, calib: [],
+  lastFaceOk: 0, lastVoice: 0, face: null, lastHandPos: null,
+  report: null, videoUrl: null, coachMsgs: [], fs: 21
+};
+
+/* ---------- sheet url ---------- */
+(function initSheet(){
+  const q = new URLSearchParams(location.search).get('sheet');
+  if (q && /^https:\/\/script\.google\.com\//.test(q)) store.set('rh_sheet', q);
+})();
+const sheetUrl = () => SHEET_URL || store.get('rh_sheet', '');
+function renderSheetState(){
+  const u = sheetUrl();
+  $('#sheetState').innerHTML = u ? '✅ 선생님 시트에 연결되어 있어요.' : '⚪ 선생님 시트가 연결되어 있지 않아요. 기록은 이 기기에만 저장돼요.';
+}
+async function callSheet(payload){
+  const u = sheetUrl();
+  if (!u) throw new Error('no-sheet');
+  const res = await fetch(u, { method: 'POST', body: JSON.stringify(payload) });
+  const j = await res.json();
+  if (!j.ok) throw new Error(j.error || 'error');
+  return j;
+}
+
+/* ---------- student ---------- */
+for (let i=1;i<=9;i++) $('#cls').insertAdjacentHTML('beforeend', `<option value="${i}">${i}반</option>`);
+for (let i=1;i<=35;i++) $('#num').insertAdjacentHTML('beforeend', `<option value="${i}">${i}번</option>`);
+const stu0 = store.get('rh_student', null);
+if (stu0){ $('#cls').value = stu0.cls; $('#num').value = stu0.num; $('#name').value = stu0.name || ''; }
+const student = () => ({ grade: 2, cls: +$('#cls').value, num: +$('#num').value, name: $('#name').value.trim() });
+const stuKey = s => `2-${s.cls}-${s.num}-${s.name}`;
+['#cls','#num','#name'].forEach(s => $(s).addEventListener('change', () => { store.set('rh_student', student()); loadScriptFor(); renderMission(); }));
+
+/* ---------- mode ---------- */
+$$('.mode').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+function setMode(m){
+  S.mode = m;
+  $$('.mode').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  $('#kwBox').classList.toggle('hidden', m !== 'keywords');
+  if (m === 'keywords' && !$('#kw').value.trim() && $('#script').value.trim()) $('#kw').value = extractKeywords($('#script').value);
+}
+
+/* ---------- script ---------- */
+const STOP = new Set('a an the and or but so to of in on at for with from by as is are was were be been being am i you he she it we they me my your his her its our their this that these those there here do does did have has had not no yes can will would could should just very really also then than if when what why how who which about into out up down over more most some any all one two three like get got make made go going know think thing things lot lots because today everyone hi hello thank thanks listening let me us them ok okay well too only even much many each other same next time first second third last'.split(' '));
+const words = t => (String(t).toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) || []);
+const contentWords = t => words(t).filter(w => w.length > 2 && !STOP.has(w));
+const FLOW = [
+  { k:'취미 소개', re:/\b(my hobby|my favorite|i like|i love|i enjoy|i'm into|i am into|in my free time|i often|i usually|on weekends)\b/i },
+  { k:'궁금증 질문', re:/\?|\b(why|how come|what makes|have you ever wondered|i was curious|i got curious|i wondered|i wanted to know)\b/i },
+  { k:'이유·원리', re:/\b(because|the reason|this is why|that's why|that is why|this means|it is called|it's called|works|the answer is|the secret)\b/i },
+  { k:'예시', re:/\b(for example|for instance|such as|let me give you an example|imagine|in my case)\b/i },
+  { k:'정리', re:/\b(in conclusion|to sum up|in short|to summarize|next time|thank you|so,? the answer)\b/i }
+];
+function flowCheck(t){ return FLOW.map(f => ({ k: f.k, ok: f.re.test(t) })); }
+function updateScriptStats(){
+  const t = $('#script').value, n = words(t).length, est = n / WPM_BASE * 60;
+  $('#wc').textContent = n; $('#est').textContent = fmt(est);
+  const max = 330, lo = TARGET_MIN/60*WPM_BASE, hi = TARGET_MAX/60*WPM_BASE;
+  $('#wzone').style.left = (lo/max*100)+'%'; $('#wzone').style.width = ((hi-lo)/max*100)+'%';
+  $('#wfill').style.width = Math.min(100, n/max*100)+'%';
+  const m = $('#wmsg');
+  if (!n){ m.textContent = '목표 약 195~260단어'; m.style.color = 'var(--mute)'; }
+  else if (n < lo - 15){ m.textContent = `조금 짧아요 (+${Math.round(lo-n)}단어)`; m.style.color = 'var(--ok)'; }
+  else if (n > hi + 15){ m.textContent = `조금 길어요 (−${Math.round(n-hi)}단어)`; m.style.color = 'var(--fix)'; }
+  else { m.textContent = '알맞은 길이예요'; m.style.color = 'var(--good)'; }
+  $('#flow').innerHTML = flowCheck(t).map(f => `<div class="${f.ok?'y':''}">${f.ok?'✓ ':''}${f.k}</div>`).join('');
+}
+$('#script').addEventListener('input', () => { updateScriptStats(); clearTimeout(S._sv); S._sv = setTimeout(() => saveScript(true), 1200); });
+function saveScript(auto){
+  const all = store.get('rh_scripts', {});
+  all[stuKey(student())] = { script: $('#script').value, kw: $('#kw').value, at: Date.now() };
+  store.set('rh_scripts', all);
+  $('#saved').textContent = (auto ? '자동 저장됨 · ' : '저장됨 · ') + new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
+  if (!auto) toast('대본을 이 기기에 저장했어요');
+}
+function loadScriptFor(){
+  const v = store.get('rh_scripts', {})[stuKey(student())];
+  if (v){ $('#script').value = v.script || ''; $('#kw').value = v.kw || ''; }
+  updateScriptStats();
+}
+$('#kw').addEventListener('input', () => { clearTimeout(S._sv); S._sv = setTimeout(() => saveScript(true), 1200); });
+$('#bSave').onclick = () => saveScript(false);
+const SAMPLE = `Hi everyone. My hobby is playing baseball with my friends on weekends. While I was practicing pitching, I got curious about one thing. Why does a curveball curve? A ball is just a ball, so how can it change its direction in the air? Today, I will explain the secret.
+
+The answer is spin. When a pitcher throws a curveball, he snaps his wrist and makes the ball spin very fast, about thirty times per second. As the ball spins, it pulls the air around it. On one side, the air moves faster, and on the other side, the air moves slower. Faster air means lower pressure. So the ball is pushed toward the side with lower pressure. This is called the Magnus effect.
+
+Let me give you an example from soccer. When a soccer player kicks a free kick with a lot of spin, the ball bends around the wall of players. It is the same science as the curveball.
+
+So, a curveball curves because of spin and air pressure. Next time you watch a baseball game, look carefully at the ball. Maybe you can see the Magnus effect with your own eyes. Thank you for listening.`;
+$('#bSample').onclick = () => {
+  if ($('#script').value.trim() && !S._confirmSample){ S._confirmSample = true; toast('지금 대본이 바뀌어요. 한 번 더 누르면 샘플로 바꿔요.'); setTimeout(()=>S._confirmSample=false, 4000); return; }
+  $('#script').value = SAMPLE; S._confirmSample = false; updateScriptStats(); toast('샘플 대본을 넣었어요 (야구 커브볼 예시)');
+};
+function extractKeywords(t){
+  const sents = t.replace(/\n+/g,' ').split(/(?<=[.?!])\s+/).filter(s => s.trim());
+  return sents.map(s => {
+    if (/\?/.test(s) && words(s).length <= 9) return 'Q: ' + s.trim();
+    const cw = [...new Set(contentWords(s))].sort((a,b) => b.length - a.length).slice(0,3);
+    const order = words(s).filter(w => cw.includes(w));
+    return [...new Set(order)].join(' · ');
+  }).filter(Boolean).join('\n');
+}
+$('#bKw').onclick = () => { $('#kw').value = extractKeywords($('#script').value); saveScript(true); toast('키워드를 뽑았어요. 내 말로 고쳐 써도 좋아요.'); };
+
+/* ---------- slides ---------- */
+const loadScript = src => new Promise((ok, no) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+$('#file').addEventListener('change', e => addFiles([...e.target.files]));
+const drop = $('#drop');
+['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = 'var(--blue)'; }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = ''; }));
+drop.addEventListener('drop', e => addFiles([...e.dataTransfer.files]));
+async function addFiles(files){
+  $('#slideInfo').textContent = '불러오는 중…';
+  try{
+    for (const f of files){
+      if (/\.pdf$/i.test(f.name) || f.type === 'application/pdf') await addPdf(f);
+      else if (/\.pptx$/i.test(f.name)) await addPptx(f);
+      else if (f.type.startsWith('image/')) S.slides.push(await fileToUrl(f));
+      else if (/\.ppt$/i.test(f.name)) toast('예전 .ppt 형식은 열 수 없어요. PDF로 저장해서 올려 주세요.');
+    }
+  }catch(err){ console.error(err); toast('파일을 여는 중 문제가 생겼어요. PDF로 저장해서 다시 올려 보세요.'); }
+  $('#file').value = ''; renderThumbs();
+}
+const fileToUrl = f => new Promise(ok => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(f); });
+async function addPdf(f){
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+  const lib = window.pdfjsLib;
+  lib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const pdf = await lib.getDocument({ data: await f.arrayBuffer() }).promise;
+  for (let i=1;i<=pdf.numPages;i++){
+    const p = await pdf.getPage(i), v0 = p.getViewport({ scale: 1 }), sc = 1400 / v0.width, v = p.getViewport({ scale: sc });
+    const c = document.createElement('canvas'); c.width = v.width; c.height = v.height;
+    await p.render({ canvasContext: c.getContext('2d'), viewport: v }).promise;
+    S.slides.push(c.toDataURL('image/jpeg', .88));
+    $('#slideInfo').textContent = `PDF ${i}/${pdf.numPages}쪽…`;
+  }
+}
+async function addPptx(f){
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+  const zip = await window.JSZip.loadAsync(await f.arrayBuffer());
+  const A = 'http://schemas.openxmlformats.org/drawingml/2006/main';
+  const names = Object.keys(zip.files).filter(n => /^ppt\/slides\/slide\d+\.xml$/.test(n)).sort((a,b) => +a.match(/\d+/)[0] - +b.match(/\d+/)[0]);
+  for (const n of names){
+    const xml = new DOMParser().parseFromString(await zip.file(n).async('text'), 'application/xml');
+    const paras = [...xml.getElementsByTagNameNS(A, 'p')].map(p => [...p.getElementsByTagNameNS(A, 't')].map(t => t.textContent).join('')).filter(s => s.trim());
+    let img = null;
+    const rel = zip.file(n.replace('slides/', 'slides/_rels/') + '.rels');
+    if (rel){
+      const rx = new DOMParser().parseFromString(await rel.async('text'), 'application/xml');
+      const r = [...rx.getElementsByTagName('Relationship')].find(r => /\/image$/.test(r.getAttribute('Type')) && /\.(png|jpe?g|gif)$/i.test(r.getAttribute('Target')));
+      if (r){
+        const path = 'ppt/' + r.getAttribute('Target').replace(/^\.\.\//, '').replace(/^\/ppt\//,'');
+        const zf = zip.file(path);
+        if (zf){ try{ img = await blobToImg(await zf.async('blob')); }catch{} }
+      }
+    }
+    S.slides.push(drawTextSlide(paras[0] || '', paras.slice(1), img));
+  }
+  toast('PPT는 글자와 그림만 간단히 보여요. 디자인 그대로 보려면 PDF로 저장해서 올려 주세요.', 4200);
+}
+const blobToImg = b => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = URL.createObjectURL(b); });
+function wrapText(ctx, text, x, y, maxW, lh){
+  const ws = text.split(/\s+/); let line = '', yy = y;
+  for (const w of ws){ const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > maxW && line){ ctx.fillText(line, x, yy); line = w; yy += lh; } else line = test; }
+  if (line){ ctx.fillText(line, x, yy); yy += lh; }
+  return yy;
+}
+function drawTextSlide(title, bullets, img, theme){
+  const c = document.createElement('canvas'); c.width = 1280; c.height = 720; const x = c.getContext('2d');
+  const th = theme || { bg:'#ffffff', ink:'#14213d', acc:'#ff6b3d', sub:'#46506a' };
+  x.fillStyle = th.bg; x.fillRect(0,0,1280,720);
+  x.fillStyle = th.acc; x.fillRect(70, 82, 70, 8);
+  const textW = img ? 640 : 1120;
+  x.fillStyle = th.ink; x.font = '800 54px Pretendard, sans-serif'; x.textBaseline = 'top';
+  let y = wrapText(x, title, 70, 112, textW, 66) + 22;
+  x.font = '500 33px Pretendard, sans-serif'; x.fillStyle = th.sub;
+  for (const b of bullets.slice(0, 7)){ x.fillStyle = th.acc; x.fillText('•', 74, y); x.fillStyle = th.sub; y = wrapText(x, b, 108, y, textW - 40, 46) + 12; if (y > 660) break; }
+  if (img){ const s = Math.min(460/img.width, 520/img.height); const w = img.width*s, h = img.height*s; x.drawImage(img, 1210 - w, 360 - h/2, w, h); }
+  return c.toDataURL('image/jpeg', .9);
+}
+function sampleSlides(){
+  const T = { bg:'#0f1b33', ink:'#ffffff', acc:'#ffb547', sub:'#c9d3ea' };
+  const W = { bg:'#ffffff', ink:'#14213d', acc:'#ff6b3d', sub:'#46506a' };
+  return [
+    drawTextSlide('Why does a curveball curve?', ['My hobby: playing baseball on weekends', 'A ball is just a ball… so how can it change direction in the air?'], ballImg(), T),
+    drawTextSlide('The secret is SPIN', ['The pitcher snaps his wrist', 'The ball spins about 30 times per second', 'Spin pulls the air around the ball'], ballImg(true), W),
+    drawTextSlide('The Magnus effect', ['One side: air moves faster → lower pressure', 'Other side: air moves slower → higher pressure', 'The ball is pushed toward lower pressure'], null, W),
+    drawTextSlide('Example: a soccer free kick', ['A kick with a lot of spin', 'The ball bends around the wall of players', 'Same science as the curveball!'], null, W),
+    drawTextSlide('Summary', ['Curveball = spin + air pressure', 'Next time, watch the ball carefully!', 'Thank you for listening'], null, T)
+  ];
+}
+function ballImg(arrows){
+  const c = document.createElement('canvas'); c.width = 460; c.height = 460; const x = c.getContext('2d');
+  x.fillStyle = '#fbfaf5'; x.beginPath(); x.arc(230,230,170,0,7); x.fill();
+  x.strokeStyle = '#d7d2c2'; x.lineWidth = 3; x.stroke();
+  x.strokeStyle = '#e0384b'; x.lineWidth = 6; x.setLineDash([12,10]);
+  x.beginPath(); x.arc(70,230,150,-1.05,1.05); x.stroke(); x.beginPath(); x.arc(390,230,150,Math.PI-1.05,Math.PI+1.05); x.stroke();
+  x.setLineDash([]);
+  if (arrows){ x.strokeStyle = '#3557e8'; x.lineWidth = 9; x.beginPath(); x.arc(230,230,205,-2.4,-0.7); x.stroke(); x.fillStyle = '#3557e8'; x.beginPath(); x.moveTo(390,90); x.lineTo(352,82); x.lineTo(378,118); x.fill(); }
+  return c;
+}
+$('#bSampleSlides').onclick = () => { S.slides = sampleSlides(); renderThumbs(); toast('샘플 슬라이드 5장을 넣었어요 (샘플 대본과 짝)'); };
+$('#bClearSlides').onclick = () => { S.slides = []; renderThumbs(); };
+function renderThumbs(){
+  $('#thumbs').innerHTML = S.slides.map((s,i) => `<img src="${s}" alt="슬라이드 ${i+1}">`).join('');
+  $('#slideInfo').textContent = S.slides.length ? `${S.slides.length}장` : '';
+}
+
+/* ---------- camera / audio ---------- */
+$('#bCam').onclick = startCamera;
+async function startCamera(){
+  if (S.stream) return;
+  try{
+    S.stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' },
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+    });
+  }catch(err){
+    console.error(err);
+    toast(err.name === 'NotAllowedError' ? '카메라·마이크 권한을 허용해 주세요 (주소창 왼쪽 🔒 아이콘)' : '카메라를 켤 수 없어요. 다른 앱이 카메라를 쓰고 있는지 확인해 주세요.', 4500);
+    return;
+  }
+  $('#pv').srcObject = S.stream; $('#sv').srcObject = S.stream;
+  $('#camPh').classList.add('hidden');
+  $('#bCam').textContent = '✓ 카메라 켜짐'; $('#bCam').disabled = true;
+  S.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const src = S.audioCtx.createMediaStreamSource(S.stream);
+  S.analyser = S.audioCtx.createAnalyser(); S.analyser.fftSize = 1024; src.connect(S.analyser);
+  S.buf = new Float32Array(S.analyser.fftSize);
+  $('#bStart').disabled = false; $('#startHint').firstChild.textContent = '';
+  audioLoop(); loadVision();
+}
+function rms(){
+  S.analyser.getFloatTimeDomainData(S.buf);
+  let s = 0; for (let i=0;i<S.buf.length;i++) s += S.buf[i]*S.buf[i];
+  return Math.sqrt(s / S.buf.length);
+}
+function audioLoop(){
+  let lastPush = 0;
+  const tick = () => {
+    if (!S.analyser) return;
+    const r = rms(), lvl = Math.min(1, r * 9), now = performance.now();
+    $('#volFill').style.width = (lvl*100) + '%';
+    if (lvl > 0.12) S.lastVoice = now;
+    if (S.recording && now - lastPush >= 50){ S.vol.push({ t: (now - S.t0)/1000, r }); lastPush = now; }
+    if (S.recording){ const p = $('#pVol'); p.textContent = lvl > 0.12 ? '🎙 말하는 중' : '🎙 조용'; p.className = 'pill' + (lvl > 0.12 ? ' g' : ''); }
+    updateChecks(now);
+    requestAnimationFrame(tick);
+  };
+  tick();
+}
+function updateChecks(now){
+  if (S.recording) return;
+  const c1 = !!S.stream, c2 = S.vision.failed ? c1 : now - S.lastFaceOk < 1200, c3 = now - S.lastVoice < 2500;
+  $('#ck1').classList.toggle('y', c1); $('#ck2').classList.toggle('y', c2); $('#ck3').classList.toggle('y', c3);
+  const n = c1 + c2 + c3;
+  if (n !== S._ckn){ S._ckn = n; $('#ckCount').textContent = `${n}/3 준비됨`; $('#ckCount').classList.toggle('y', n === 3); }
+}
+
+/* ---------- vision (MediaPipe, on-device) ---------- */
+async function loadVision(){
+  if (S.vision.loading || S.vision.ready) return;
+  S.vision.loading = true; $('#visionInfo').textContent = '시선·표정 분석 도구 불러오는 중…';
+  try{
+    const V = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MP_VER}/vision_bundle.mjs`);
+    const fs = await V.FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MP_VER}/wasm`);
+    const make = async (Cls, path, extra, delegate) => Cls.createFromOptions(fs, { baseOptions: { modelAssetPath: path, delegate }, runningMode: 'VIDEO', ...extra });
+    const faceOpt = { numFaces: 1, outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true };
+    const facePath = 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task';
+    const handPath = 'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task';
+    try{ S.vision.face = await make(V.FaceLandmarker, facePath, faceOpt, 'GPU'); }catch{ S.vision.face = await make(V.FaceLandmarker, facePath, faceOpt, 'CPU'); }
+    try{ S.vision.hand = await make(V.HandLandmarker, handPath, { numHands: 2 }, 'GPU'); }catch{ try{ S.vision.hand = await make(V.HandLandmarker, handPath, { numHands: 2 }, 'CPU'); }catch{} }
+    S.vision.ready = true; $('#visionInfo').textContent = '✓ 시선·표정·제스처 분석 준비됨 (기기 안에서 처리)';
+    visionLoop();
+  }catch(err){
+    console.error(err); S.vision.failed = true;
+    $('#visionInfo').textContent = '시선·표정 분석을 불러오지 못했어요. 녹화와 말하기 분석은 정상 동작해요.';
+  }
+}
+function bs(cats, name){ const c = cats.find(c => c.categoryName === name); return c ? c.score : 0; }
+function visionLoop(){
+  const v = $('#pv'); let last = 0, n = 0;
+  const tick = () => {
+    const now = performance.now();
+    if (v.readyState >= 2 && now - last >= 110){
+      last = now; n++;
+      try{
+        const r = S.vision.face.detectForVideo(v, now);
+        if (r.faceBlendshapes && r.faceBlendshapes.length){
+          const cats = r.faceBlendshapes[0].categories, m = r.facialTransformationMatrixes?.[0]?.data;
+          const clamp = a => Math.max(-1, Math.min(1, a));
+          const yaw = m ? Math.asin(clamp(m[8])) * 57.3 : 0, pitch = m ? Math.asin(clamp(m[9])) * 57.3 : 0;
+          const look = {
+            down: (bs(cats,'eyeLookDownLeft') + bs(cats,'eyeLookDownRight'))/2,
+            side: Math.max((bs(cats,'eyeLookOutLeft') + bs(cats,'eyeLookInRight'))/2, (bs(cats,'eyeLookInLeft') + bs(cats,'eyeLookOutRight'))/2),
+            smile: (bs(cats,'mouthSmileLeft') + bs(cats,'mouthSmileRight'))/2
+          };
+          S.face = { yaw, pitch, ...look }; S.lastFaceOk = now;
+          if (S.counting) S.calib.push({ yaw, pitch, down: look.down });
+          if (S.recording) S.gaze.push({ t: (now - S.t0)/1000, cls: classify(S.face), smile: look.smile });
+        } else {
+          S.face = null;
+          if (S.recording) S.gaze.push({ t: (now - S.t0)/1000, cls: 'none', smile: 0 });
+        }
+        if (S.recording){
+          const g = S.gaze[S.gaze.length-1], p = $('#pGaze');
+          const lab = { camera:['👀 화면 보는 중',' g'], down:['📄 대본 보는 중',' o'], side:['↔ 옆을 봐요',' o'], none:['얼굴이 안 보여요',' o'] }[g?.cls || 'none'];
+          p.textContent = lab[0]; p.className = 'pill' + lab[1];
+        }
+        if (S.recording && S.vision.hand && n % 3 === 0){
+          const h = S.vision.hand.detectForVideo(v, now + 0.5);
+          const lm = h.landmarks || [];
+          let move = 0;
+          if (lm.length){
+            const pos = lm.map(l => ({ x: l[0].x, y: l[0].y }));
+            if (S.lastHandPos) move = Math.hypot(pos[0].x - S.lastHandPos[0].x, pos[0].y - S.lastHandPos[0].y);
+            S.lastHandPos = pos;
+          } else S.lastHandPos = null;
+          S.hands.push({ t: (now - S.t0)/1000, n: lm.length, move });
+        }
+      }catch(e){ /* skip frame */ }
+    }
+    requestAnimationFrame(tick);
+  };
+  tick();
+}
+function classify(f){
+  const dy = Math.abs(f.yaw - S.base.yaw), dp = Math.abs(f.pitch - S.base.pitch);
+  const down = f.down - (S.base.down || 0);
+  if (dy > 22 || f.side > 0.62) return 'side';
+  if (down > 0.32 || dp > 15) return 'down';
+  return 'camera';
+}
+const median = a => { if (!a.length) return 0; const s = [...a].sort((x,y) => x-y); return s[Math.floor(s.length/2)]; };
+
+/* ---------- speech recognition ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SR) $('#srWarn').classList.remove('hidden');
+function startRecog(){
+  if (!SR) return;
+  const r = new SR(); r.lang = 'en-US'; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+  r.onresult = e => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++){
+      const res = e.results[i];
+      if (res.isFinal) S.finals.push({ t: (performance.now() - S.t0)/1000, text: res[0].transcript.trim() });
+      else interim += res[0].transcript;
+    }
+    S.interim = interim;
+    $('#caption').textContent = (S.finals.slice(-1)[0]?.text || '') + ' ' + interim;
+  };
+  r.onerror = e => { if (e.error === 'not-allowed') toast('마이크 음성 인식 권한이 꺼져 있어요'); };
+  r.onend = () => { if (S.recording){ try{ r.start(); }catch{} } };
+  try{ r.start(); }catch{}
+  S.recog = r;
+}
+
+/* ---------- stage ---------- */
+$('#bStart').onclick = beginRehearsal;
+function beginRehearsal(){
+  if (!S.stream) return toast('먼저 카메라를 켜 주세요');
+  const s = student();
+  if (!s.name){ $('#name').focus(); return toast('이름을 입력해 주세요'); }
+  if (S.mode === 'script' && !$('#script').value.trim()) toast('대본 없이 시작해요. 대본을 쓰면 반영도까지 확인할 수 있어요.', 3200);
+  if (S.mode === 'keywords' && !$('#kw').value.trim()) $('#kw').value = extractKeywords($('#script').value);
+  store.set('rh_student', s); saveScript(true);
+  if (S.audioCtx?.state === 'suspended') S.audioCtx.resume();
+  $('#topbar').classList.add('hidden'); $('#setup').classList.add('hidden'); $('#report').classList.add('hidden');
+  $('#stage').classList.remove('hidden');
+  if (matchMedia('(orientation: portrait)').matches && innerWidth < 1000 && !S._portraitOk) $('#rotate').classList.remove('hidden');
+  S.slideIdx = 0; renderSlide(); renderScriptPane();
+  $('#clock').textContent = '0:00'; $('#tfill').style.width = '0'; $('#tmsg').textContent = '준비'; $('#caption').textContent = '';
+  $('#recTag').style.visibility = 'hidden';
+  countdown();
+}
+$('#bPortrait').onclick = () => { S._portraitOk = true; $('#rotate').classList.add('hidden'); };
+addEventListener('resize', () => { if (!matchMedia('(orientation: portrait)').matches) $('#rotate').classList.add('hidden'); });
+function countdown(){
+  S.counting = true; S.calib = [];
+  const cd = $('#countdown'); cd.classList.remove('hidden');
+  let n = 3; $('#countNum').textContent = n;
+  const it = setInterval(() => {
+    n--;
+    if (n > 0){ $('#countNum').textContent = n; return; }
+    clearInterval(it); cd.classList.add('hidden'); S.counting = false;
+    if (S.calib.length >= 3){
+      const ys = S.calib.map(c => c.yaw), ps = S.calib.map(c => c.pitch), ds = S.calib.map(c => c.down);
+      S.base = { yaw: median(ys), pitch: median(ps), down: Math.min(0.25, median(ds)) };
+    } else S.base = { yaw: 0, pitch: 0, down: 0 };
+    startRecording();
+  }, 1000);
+  S._cd = it;
+}
+function startRecording(){
+  S.vol = []; S.gaze = []; S.hands = []; S.finals = []; S.interim = ''; S.chunks = []; S.lastHandPos = null;
+  S.t0 = performance.now(); S.recording = true;
+  $('#recTag').style.visibility = 'visible';
+  const types = ['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm','video/mp4'];
+  S.mime = types.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+  try{
+    S.recorder = new MediaRecorder(S.stream, S.mime ? { mimeType: S.mime, videoBitsPerSecond: 1500000 } : undefined);
+    S.recorder.ondataavailable = e => { if (e.data.size) S.chunks.push(e.data); };
+    S.recorder.start(1000);
+  }catch(e){ console.error(e); S.recorder = null; }
+  startRecog();
+  S._timer = setInterval(stageTick, 200);
+}
+function stageTick(){
+  const el = (performance.now() - S.t0)/1000;
+  $('#clock').textContent = fmt(el);
+  $('#tfill').style.width = Math.min(100, el/150*100) + '%';
+  const m = $('#tmsg'), f = $('#tfill');
+  if (el < TARGET_MIN){ m.textContent = `1:30까지 ${fmt(TARGET_MIN - el)}`; m.style.color = '#9aa5bd'; f.style.background = '#8fa3c7'; }
+  else if (el <= TARGET_MAX){ m.textContent = `좋아요! 2:00까지 ${fmt(TARGET_MAX - el)}`; m.style.color = '#7ee2b8'; f.style.background = '#2fbf85'; }
+  else { m.textContent = '2분이 지났어요. 마무리!'; m.style.color = '#ff8a8e'; f.style.background = '#ff5a5f'; }
+  if (el > 20 && SR){ const w = S.finals.reduce((a,f) => a + words(f.text).length, 0) + words(S.interim).length; const wpm = Math.round(w / el * 60); const p = $('#pWpm'); p.textContent = `속도 ${wpm}`; p.className = 'pill' + (wpm >= 105 && wpm <= 165 ? ' g' : ' o'); }
+  if (el >= HARD_STOP){ toast('3분이 되어 자동으로 끝냈어요'); stopRehearsal(); }
+}
+$('#bStop').onclick = () => stopRehearsal();
+function stopRehearsal(){
+  if (S.counting){ clearInterval(S._cd); S.counting = false; $('#countdown').classList.add('hidden'); backToSetup(); return; }
+  if (!S.recording) return;
+  const dur = (performance.now() - S.t0)/1000;
+  S.recording = false; clearInterval(S._timer);
+  try{ S.recog?.stop(); }catch{}
+  if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  $('#stage').classList.add('hidden'); $('#analyzing').classList.remove('hidden');
+  const steps = ['녹화 영상 정리', '발표 시간 · 말 속도', '멈춤 · 군말 찾기', S.mode === 'script' ? '대본 반영 확인' : '키워드 반영 확인', '시선 · 표정 · 제스처', '다음 미션 만들기'];
+  let k = 0; const draw = () => { $('#alist').innerHTML = steps.map((s,i) => `<div class="${i<k?'d':''}">${i<k?'✓':'·'} ${s}</div>`).join(''); };
+  draw(); const iv = setInterval(() => { k++; draw(); }, 280);
+  const recDone = new Promise(ok => {
+    if (!S.recorder || S.recorder.state === 'inactive') return ok();
+    S.recorder.onstop = ok; try{ S.recorder.stop(); }catch{ ok(); }
+  });
+  Promise.all([recDone, new Promise(ok => setTimeout(ok, 1800))]).then(() => {
+    clearInterval(iv);
+    if (S.videoUrl) URL.revokeObjectURL(S.videoUrl);
+    S.videoUrl = S.chunks.length ? URL.createObjectURL(new Blob(S.chunks, { type: S.mime || 'video/webm' })) : null;
+    S.report = analyze(dur);
+    saveLocalRecord(S.report);
+    $('#analyzing').classList.add('hidden');
+    renderReport();
+  });
+}
+function backToSetup(){
+  ['#stage','#analyzing','#report'].forEach(s => $(s).classList.add('hidden'));
+  $('#topbar').classList.remove('hidden'); $('#setup').classList.remove('hidden');
+  renderMission(); scrollTo(0,0);
+}
+function renderSlide(){
+  const v = $('#slideView');
+  if (!S.slides.length){ v.innerHTML = '<div class="empty">슬라이드 없음<br><small>준비 화면에서 PDF·이미지를 올릴 수 있어요</small></div>'; $('#sIdx').textContent = '-'; $('#sCount').textContent = ''; return; }
+  v.innerHTML = `<img src="${S.slides[S.slideIdx]}" alt="">`;
+  $('#sIdx').textContent = `${S.slideIdx+1} / ${S.slides.length}`; $('#sCount').textContent = '← → 넘기기';
+}
+function moveSlide(d){ if (!S.slides.length) return; S.slideIdx = Math.max(0, Math.min(S.slides.length-1, S.slideIdx + d)); renderSlide(); }
+$('#sPrev').onclick = () => moveSlide(-1); $('#sNext').onclick = () => moveSlide(1);
+function renderScriptPane(){
+  const v = $('#scrView');
+  if (S.mode === 'keywords'){
+    $('#scrTitle').textContent = 'KEYWORDS · 키워드';
+    v.className = 'scr kw'; v.innerHTML = ($('#kw').value.trim() || '(키워드 없음)').split('\n').filter(s => s.trim()).map(s => `<div>${esc(s)}</div>`).join('');
+  } else {
+    $('#scrTitle').textContent = 'SCRIPT · 대본 (↑↓ 스크롤)';
+    v.className = 'scr'; v.textContent = $('#script').value.trim() || '(대본 없음)';
+  }
+  v.scrollTop = 0; v.style.setProperty('--fs', S.fs + 'px');
+}
+$('#fsUp').onclick = () => { S.fs = Math.min(34, S.fs + 2); $('#scrView').style.setProperty('--fs', S.fs+'px'); };
+$('#fsDown').onclick = () => { S.fs = Math.max(14, S.fs - 2); $('#scrView').style.setProperty('--fs', S.fs+'px'); };
+$('#bFull').onclick = toggleFull;
+function toggleFull(){ if (document.fullscreenElement) document.exitFullscreen().catch(()=>{}); else document.documentElement.requestFullscreen?.().catch(()=>{}); }
+
+/* ---------- keyboard ---------- */
+addEventListener('keydown', e => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName);
+  if (e.key === 'Escape') closeAll();
+  if (typing) return;
+  const onStage = !$('#stage').classList.contains('hidden');
+  if (e.code === 'Space'){
+    e.preventDefault();
+    if (onStage) stopRehearsal(); else if (!$('#setup').classList.contains('hidden') && !$('#bStart').disabled) beginRehearsal();
+  }
+  if (!onStage) return;
+  if (e.key === 'ArrowRight'){ e.preventDefault(); moveSlide(1); }
+  if (e.key === 'ArrowLeft'){ e.preventDefault(); moveSlide(-1); }
+  if (e.key === 'ArrowDown'){ e.preventDefault(); $('#scrView').scrollBy(0, 90); }
+  if (e.key === 'ArrowUp'){ e.preventDefault(); $('#scrView').scrollBy(0, -90); }
+  if (e.key === 'f' || e.key === 'F') toggleFull();
+});
+
+/* ---------- analysis ---------- */
+const FILLER_RE = /\b(um+|uh+|uhm|umm|erm|er|ah+|hmm+|you know|i mean)\b/gi;
+function analyze(dur){
+  const s = student(), mode = S.mode;
+  const transcript = S.finals.map(f => f.text).join(' ').replace(/\s+/g,' ').trim();
+  const nWords = words(transcript).length;
+  const R = { at: Date.now(), student: s, mode, modeLabel: mode === 'script' ? '1차 대본 보며' : '2차 키워드만', duration: Math.round(dur), transcript, words: nWords, items: {} };
+
+  // speaking span & pauses from volume
+  const rs = S.vol.map(v => v.r);
+  let pauses = 0, longest = 0, speakSec = 0;
+  if (rs.length > 20){
+    const floor = median(rs.slice().sort((a,b)=>a-b).slice(0, Math.max(5, Math.floor(rs.length*0.25))));
+    const peak = rs.slice().sort((a,b)=>a-b)[Math.floor(rs.length*0.9)];
+    const thr = Math.max(floor * 2.2, floor + (peak - floor) * 0.18, 0.006);
+    const sp = S.vol.map(v => v.r > thr);
+    const first = sp.indexOf(true), last = sp.lastIndexOf(true);
+    if (first >= 0){
+      let run = 0;
+      for (let i = first; i <= last; i++){
+        if (sp[i]){ if (run * 0.05 >= 2.0) pauses++; longest = Math.max(longest, run*0.05); run = 0; speakSec += 0.05; }
+        else run++;
+      }
+    }
+  }
+  R.pauses = pauses; R.longestPause = +longest.toFixed(1);
+
+  const fillers = (transcript.match(FILLER_RE) || []);
+  R.fillers = fillers.length; R.fillerWords = [...new Set(fillers.map(f => f.toLowerCase()))];
+  R.wpm = nWords && dur > 5 ? Math.round(nWords / dur * 60) : 0;
+
+  // coverage
+  const said = new Set(contentWords(transcript));
+  if (mode === 'script'){
+    const scw = [...new Set(contentWords($('#script').value))];
+    const hit = scw.filter(w => said.has(w) || said.has(w.replace(/s$/,'')) || said.has(w + 's'));
+    R.coverage = scw.length ? Math.round(hit.length / scw.length * 100) : null;
+    R.missed = scw.filter(w => !hit.includes(w)).slice(0, 18);
+  } else {
+    const kws = $('#kw').value.split('\n').map(l => l.replace(/^Q:\s*/i,'')).filter(l => contentWords(l).length);
+    const ok = kws.filter(l => { const cw = contentWords(l); return cw.filter(w => said.has(w)).length >= Math.ceil(cw.length/2); });
+    R.coverage = kws.length ? Math.round(ok.length / kws.length * 100) : null;
+    R.missed = kws.filter(l => !ok.includes(l)).slice(0, 10);
+  }
+
+  // gaze & expression
+  const face = S.gaze.filter(g => g.cls !== 'none');
+  const pct = (a, b) => b ? Math.round(a / b * 100) : null;
+  R.gazeCamera = pct(face.filter(g => g.cls === 'camera').length, face.length);
+  R.gazeDown = pct(face.filter(g => g.cls === 'down').length, face.length);
+  R.gazeSide = pct(face.filter(g => g.cls === 'side').length, face.length);
+  R.faceSeen = pct(face.length, S.gaze.length);
+  let run = 0, maxDown = 0, prevT = 0;
+  for (const g of S.gaze){ if (g.cls === 'down'){ run += g.t - prevT; maxDown = Math.max(maxDown, run); } else run = 0; prevT = g.t; }
+  R.maxDown = Math.round(maxDown);
+  R.smile = pct(face.filter(g => g.smile > 0.33).length, face.length);
+  R.timeline = S.gaze.length ? bucketTimeline(S.gaze, dur) : [];
+  const hs = S.hands;
+  R.hands = pct(hs.filter(h => h.n > 0).length, hs.length);
+  const moves = hs.filter(h => h.move > 0).map(h => h.move);
+  R.handMove = moves.length ? +(moves.reduce((a,b)=>a+b,0) / moves.length).toFixed(3) : 0;
+
+  R.flow = flowCheck(transcript || $('#script').value);
+  R.items = grade(R);
+  R.mission = makeMission(R);
+  const hist = store.get('rh_records', []).filter(r => stuKey(r.student) === stuKey(s));
+  R.attempt = hist.length + 1;
+  return R;
+}
+function bucketTimeline(g, dur){
+  const n = 60, out = [];
+  for (let i=0;i<n;i++){
+    const a = dur*i/n, b = dur*(i+1)/n, seg = g.filter(x => x.t >= a && x.t < b);
+    if (!seg.length){ out.push('none'); continue; }
+    const c = {}; seg.forEach(x => c[x.cls] = (c[x.cls]||0) + 1);
+    out.push(Object.entries(c).sort((x,y) => y[1]-x[1])[0][0]);
+  }
+  return out;
+}
+function grade(R){
+  const I = {}, na = SR ? null : '이 브라우저에서는 측정할 수 없어요';
+  const d = R.duration;
+  I.time = { k:'발표 시간', v: fmt(d), u:'', lv: d >= TARGET_MIN && d <= TARGET_MAX ? 'good' : (d >= TARGET_MIN-10 && d <= TARGET_MAX+10 ? 'ok' : 'fix'),
+    t: d < TARGET_MIN ? `1:30까지 ${TARGET_MIN-d}초 모자라요. 예시나 설명 문장을 1~2개 더 넣어 보세요.` : d > TARGET_MAX ? `2:00보다 ${d-TARGET_MAX}초 길어요. 덜 중요한 문장을 줄여 보세요.` : '목표 시간(1:30~2:00) 안에 들어왔어요!' };
+  if (!SR || !R.words){
+    I.wpm = { k:'말 속도', v:'-', u:'', lv:'na', t: na || '말소리가 인식되지 않았어요. 마이크와 조금 더 가까이, 또렷하게 말해 보세요.' };
+  } else {
+    const w = R.wpm;
+    I.wpm = { k:'말 속도', v: w, u:'단어/분', lv: w >= 110 && w <= 160 ? 'good' : (w >= 95 && w <= 175 ? 'ok' : 'fix'),
+      t: w < 110 ? '조금 느려요. 문장 사이 쉬는 시간을 줄이고, 아는 문장은 이어서 말해 보세요.' : w > 160 ? '조금 빨라요. 마침표에서 한 박자 쉬어 가면 듣는 사람이 따라오기 쉬워요.' : '듣기 편한 속도예요 (권장 110~160).' };
+  }
+  I.pause = { k:'긴 멈춤 (2초 이상)', v: R.pauses, u:'회', lv: R.pauses <= 2 ? 'good' : R.pauses <= 5 ? 'ok' : 'fix',
+    t: R.pauses <= 2 ? '흐름이 자연스럽게 이어졌어요.' : `가장 길게 ${R.longestPause}초 멈췄어요. 막히는 부분 앞 문장을 한 번 더 연습해 보세요.` };
+  I.filler = SR && R.words ? { k:'군말 (um, uh 등)', v: R.fillers, u:'회', lv: R.fillers <= 2 ? 'good' : R.fillers <= 5 ? 'ok' : 'fix',
+    t: R.fillers ? `${R.fillerWords.join(', ')} → 군말 대신 잠깐 멈추는 게 더 자연스러워요.` : '군말이 거의 없어요. (음성 인식은 "음, 어"를 놓칠 수 있어서 긴 멈춤도 함께 보세요)' } : { k:'군말', v:'-', u:'', lv:'na', t: na || '말소리가 인식되지 않았어요.' };
+  const covName = R.mode === 'script' ? '대본 반영' : '키워드 반영';
+  I.cov = R.coverage == null || !SR || !R.words ? { k: covName, v:'-', u:'', lv:'na', t: !SR ? na : !R.words ? '말소리가 인식되지 않았어요.' : (R.mode === 'script' ? '대본을 쓰면 확인할 수 있어요.' : '키워드를 쓰면 확인할 수 있어요.') }
+    : { k: covName, v: R.coverage, u:'%', lv: R.coverage >= 80 ? 'good' : R.coverage >= 60 ? 'ok' : 'fix',
+        t: R.coverage >= 80 ? '준비한 내용을 거의 다 말했어요.' : '아래 "인식되지 않은 말"을 확인해 보세요. 발음이 흐리면 인식이 안 될 수도 있어요.' };
+  if (R.gazeCamera == null){
+    I.gaze = { k:'화면(청중) 보기', v:'-', u:'', lv:'na', t: S.vision.failed ? '시선 분석 도구를 불러오지 못했어요.' : '얼굴이 잘 보이지 않았어요. 카메라 정면에 앉아 주세요.' };
+  } else {
+    const goal = R.mode === 'script' ? [40, 25] : [60, 40];
+    I.gaze = { k:'화면(청중) 보기', v: R.gazeCamera, u:'%', lv: R.gazeCamera >= goal[0] ? 'good' : R.gazeCamera >= goal[1] ? 'ok' : 'fix',
+      t: R.gazeCamera >= goal[0] ? `대본을 봐도 청중과 눈을 잘 맞췄어요. (대본 보기 ${R.gazeDown}%)` : `대본 보기 ${R.gazeDown}%, 가장 길게 ${R.maxDown}초 동안 대본만 봤어요. 문장 끝에서 고개를 들어 화면을 봐요.` };
+  }
+  I.smile = R.smile == null ? { k:'표정', v:'-', u:'', lv:'na', t:'얼굴이 잘 보이지 않았어요.' }
+    : { k:'표정 (미소)', v: R.smile, u:'%', lv: R.smile >= 18 ? 'good' : R.smile >= 7 ? 'ok' : 'fix',
+        t: R.smile >= 18 ? '밝은 표정이 자주 보였어요.' : '표정이 조금 굳어 있어요. 인사·질문·마무리 할 때 살짝 웃어 보세요.' };
+  I.hand = R.hands == null ? { k:'손 제스처', v:'-', u:'', lv:'na', t:'제스처 분석을 하지 못했어요.' }
+    : { k:'손 제스처', v: R.hands, u:'%', lv: R.hands >= 15 && R.hands <= 85 ? 'good' : R.hands >= 5 ? 'ok' : 'fix',
+        t: R.hands < 15 ? '손이 거의 안 보였어요. 숫자·방향·크기를 말할 때 손으로 보여 주면 설명이 쉬워져요.' : R.hands > 85 && R.handMove > 0.03 ? '손을 계속 움직였어요. 중요한 순간에만 쓰면 더 눈에 띄어요.' : '설명할 때 손을 알맞게 썼어요. (허리 위까지 보여야 측정돼요)' };
+  return I;
+}
+function makeMission(R){
+  const I = R.items, out = [];
+  const pri = ['time','cov','gaze','wpm','pause','filler','hand','smile'];
+  const lines = {
+    time: R.duration < TARGET_MIN ? '예시나 설명을 한 문장 더 넣어서 1:30 넘기기' : '덜 중요한 문장을 줄여서 2:00 안에 끝내기',
+    cov: R.mode === 'script' ? '빠뜨린 부분까지 대본을 끝까지 또렷하게 말하기' : '키워드를 모두 말하기 (빠진 키워드 먼저 연습)',
+    gaze: `문장이 끝날 때마다 고개 들어 렌즈 보기 (목표 ${R.mode === 'script' ? 40 : 60}% 이상)`,
+    wpm: R.wpm < 110 ? '쉬는 시간을 줄이고 조금 더 빠르게 이어 말하기' : '마침표에서 한 박자 쉬면서 천천히 말하기',
+    pause: '자주 막힌 부분의 앞 문장을 3번 소리 내어 연습하기',
+    filler: '"um, uh" 대신 입을 닫고 잠깐 멈추기',
+    hand: '숫자·방향·크기를 말할 때 손으로 한 번씩 보여 주기',
+    smile: '인사·질문·마무리에서 살짝 웃으며 말하기'
+  };
+  for (const lv of ['fix','ok']) for (const k of pri) if (I[k]?.lv === lv && out.length < 2) out.push(lines[k]);
+  if (!out.length) out.push(R.mode === 'script' ? '이번엔 2차(키워드만)로 도전해 보기' : '친구 앞에서 실제처럼 한 번 발표해 보기');
+  return out;
+}
+
+/* ---------- records ---------- */
+function saveLocalRecord(R){
+  const all = store.get('rh_records', []);
+  const { timeline, ...lite } = R;
+  all.push({ ...lite, script: $('#script').value });
+  store.set('rh_records', all.slice(-200));
+  const m = store.get('rh_missions', {}); m[stuKey(R.student)] = { list: R.mission, at: R.at }; store.set('rh_missions', m);
+}
+function renderMission(){
+  const m = store.get('rh_missions', {})[stuKey(student())];
+  $('#missionCard').classList.toggle('hidden', !m);
+  if (m) $('#missionList').innerHTML = m.list.map(x => `<li>${esc(x)}</li>`).join('');
+}
+function reportSummary(R){
+  if (!R) return '';
+  const I = R.items;
+  return `${R.attempt}회차 · ${R.modeLabel} · ` + Object.values(I).map(i => `${i.k} ${i.v}${i.u}`).join(', ') + ` · 미션: ${R.mission.join(' / ')}`;
+}
+
+/* ---------- report ---------- */
+function renderReport(){
+  const R = S.report, I = R.items, s = R.student;
+  const lvTxt = { good:'좋아요', ok:'괜찮아요', fix:'연습 필요', na:'측정 안 됨' };
+  const cnt = Object.values(I).reduce((a,i) => (a[i.lv] = (a[i.lv]||0) + 1, a), {});
+  const ext = (S.mime || 'video/webm').includes('mp4') ? 'mp4' : 'webm';
+  const tlCol = { camera:'#2fbf85', down:'#f0b43c', side:'#9aa7c4', none:'#e4e7ef' };
+  const said = new Set(contentWords(R.transcript));
+  const transHtml = R.transcript ? esc(R.transcript).replace(FILLER_RE, m => `<mark>${m}</mark>`) : '<span style="color:var(--mute)">인식된 말이 없어요.</span>';
+  $('#report').innerHTML = `
+    <section class="rhead">
+      <div>
+        <span class="chip o">REPORT · ${R.attempt}회차</span>
+        <h1 style="margin-top:8px">${esc(s.name)}의 리허설 리포트</h1>
+        <p>2학년 ${s.cls}반 ${s.num}번 · ${R.modeLabel} · ${new Date(R.at).toLocaleString('ko-KR', { month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' })}</p>
+      </div>
+      <div class="sumline">
+        <span class="chip g">좋아요 ${cnt.good||0}</span><span class="chip" style="background:var(--ok2);color:var(--ok)">괜찮아요 ${cnt.ok||0}</span><span class="chip" style="background:var(--fix2);color:var(--fix)">연습 필요 ${cnt.fix||0}</span>
+      </div>
+    </section>
+    <section class="metrics">
+      ${Object.values(I).map(i => `<div class="m ${i.lv}"><span class="b">${lvTxt[i.lv]}</span><span class="k">${i.k}</span><span class="v">${i.v}<small>${i.u}</small></span><span class="t">${esc(i.t)}</span></div>`).join('')}
+    </section>
+    <div class="r2">
+      <div class="col">
+        <section class="card next">
+          <h2>🎯 다음 리허설 미션</h2>
+          <p class="sub" style="margin:2px 0 0">한 번에 하나씩! 다음 연습에서 이것만 신경 써 보세요.</p>
+          <ol>${R.mission.map(m => `<li>${esc(m)}</li>`).join('')}</ol>
+        </section>
+        <section class="card">
+          <h2>👀 시간에 따른 시선</h2>
+          <p class="sub">대본을 봐도 감점은 없지만, 문장 끝마다 화면을 보면 훨씬 자신감 있어 보여요.</p>
+          ${R.timeline.length ? `<div class="tl">${R.timeline.map(c => `<div style="flex:1;background:${tlCol[c]}"></div>`).join('')}</div>
+          <div class="legend"><span><i style="background:${tlCol.camera}"></i>화면 보기 ${R.gazeCamera ?? '-'}%</span><span><i style="background:${tlCol.down}"></i>대본 보기 ${R.gazeDown ?? '-'}%</span><span><i style="background:${tlCol.side}"></i>옆 보기 ${R.gazeSide ?? '-'}%</span><span><i style="background:${tlCol.none}"></i>얼굴 안 보임</span></div>` : '<p class="note">시선 데이터가 없어요.</p>'}
+        </section>
+        <section class="card">
+          <h2>🧭 설명 흐름 점검 <span style="font-weight:500;font-size:12.5px;color:var(--mute)">(참고용 · ${R.transcript ? '실제로 말한 내용' : '인식된 말이 없어 대본'} 기준)</span></h2>
+          <div class="flow">${R.flow.map(f => `<div class="${f.ok?'y':''}">${f.ok?'✓ ':''}${f.k}</div>`).join('')}</div>
+          <p class="note">필수 단계는 아니에요. 다만 '궁금증 질문'과 '이유·원리'가 분명하면 설명 말하기가 훨씬 잘 전달돼요.</p>
+        </section>
+        <section class="card">
+          <h2>📝 인식된 말</h2>
+          <p class="sub">컴퓨터가 알아들은 말이에요. 주황색은 군말이에요.</p>
+          <div class="trans">${transHtml}</div>
+          ${R.missed?.length && R.words ? `<p style="margin:12px 0 0;font-size:13.5px;font-weight:700">${R.mode === 'script' ? '대본에 있지만 인식되지 않은 단어' : '말하지 않은(인식되지 않은) 키워드'}</p><div class="missed">${R.missed.map(w => `<span>${esc(w)}</span>`).join('')}</div><p class="note">빠뜨렸거나, 발음이 흐려서 인식되지 않았을 수 있어요.</p>` : ''}
+        </section>
+      </div>
+      <div class="col">
+        <section class="card">
+          <h2>🎬 내 리허설 영상</h2>
+          <p class="sub">영상은 이 기기에만 있어요. 창을 닫으면 사라지니 필요하면 저장해 두세요.</p>
+          ${S.videoUrl ? `<video class="play" src="${S.videoUrl}" controls playsinline></video>
+          <div class="tools"><a class="btn sm" href="${S.videoUrl}" download="리허설_2-${s.cls}_${s.num}_${esc(s.name)}_${R.attempt}회차.${ext}">⬇ 영상 저장</a></div>` : '<p class="note">이 브라우저에서는 녹화가 되지 않았어요.</p>'}
+        </section>
+        <section class="card refl">
+          <h2>🪞 성찰하기</h2>
+          <p class="sub" style="margin-bottom:0">영상을 보고 짧게 써 보세요. ${sheetUrl() ? '선생님 시트에 함께 저장돼요.' : ''}</p>
+          <label>1. 이번 리허설에서 가장 잘된 점은?</label><textarea id="rf1"></textarea>
+          <label>2. 다음에 꼭 고치고 싶은 한 가지는?</label><textarea id="rf2"></textarea>
+          <label>3. 친구들이 내 발표를 듣고 물어볼 것 같은 질문은?</label><textarea id="rf3"></textarea>
+          <div class="ract">
+            <button class="btn pri" id="bSaveRec">${sheetUrl() ? '📤 선생님 시트에 저장' : '💾 이 기기에 저장'}</button>
+            <button class="btn" id="bAskCoach">💬 AI 코치에게 결과 묻기</button>
+          </div>
+          <p class="note" id="saveState"></p>
+        </section>
+        <section class="card">
+          <div class="ract" style="margin:0">
+            <button class="btn acc" id="bAgain">↻ 같은 방식으로 다시</button>
+            <button class="btn" id="bOther">${R.mode === 'script' ? '2차(키워드만)로 해 보기' : '1차(대본 보며)로 해 보기'}</button>
+            <button class="btn ghost" id="bBack">준비 화면으로</button>
+          </div>
+        </section>
+      </div>
+    </div>`;
+  $('#report').classList.remove('hidden'); $('#topbar').classList.remove('hidden'); scrollTo(0,0);
+  $('#bAgain').onclick = () => { $('#report').classList.add('hidden'); beginRehearsal(); };
+  $('#bOther').onclick = () => { setMode(R.mode === 'script' ? 'keywords' : 'script'); $('#report').classList.add('hidden'); beginRehearsal(); };
+  $('#bBack').onclick = backToSetup;
+  $('#bSaveRec').onclick = saveRecord;
+  $('#bAskCoach').onclick = () => { openCoach(); sendCoach('방금 리허설 결과를 봤어. 무엇부터 고치면 좋을까?', '리허설 결과'); };
+}
+async function saveRecord(){
+  const R = S.report; if (!R) return;
+  const reflection = { good: $('#rf1').value.trim(), fix: $('#rf2').value.trim(), question: $('#rf3').value.trim() };
+  const all = store.get('rh_records', []); const me = all.find(r => r.at === R.at); if (me){ me.reflection = reflection; store.set('rh_records', all); }
+  const st = $('#saveState');
+  if (!sheetUrl()){ st.textContent = '✓ 이 기기에 저장했어요.'; return; }
+  const b = $('#bSaveRec'); b.disabled = true; st.textContent = '저장하는 중…';
+  const I = R.items;
+  try{
+    await callSheet({ action:'save', student: R.student, script: $('#script').value, reflection,
+      report: { attempt: R.attempt, modeLabel: R.modeLabel, duration: R.duration, wpm: R.wpm, words: R.words, pauses: R.pauses, fillers: R.fillers,
+        coverage: R.coverage ?? '', gazeCamera: R.gazeCamera ?? '', gazeDown: R.gazeDown ?? '', smile: R.smile ?? '', hands: R.hands ?? '',
+        mission: R.mission.join(' / '), transcript: R.transcript } });
+    st.textContent = '✓ 선생님 시트에 저장했어요!'; b.textContent = '✓ 저장 완료'; toast('선생님 시트에 저장했어요');
+  }catch(err){ console.error(err); st.textContent = '저장하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (이 기기에는 저장됨)'; b.disabled = false; }
+}
+
+/* ---------- coach ---------- */
+$('#bCoach').onclick = openCoach;
+$('#bPolish').onclick = () => {
+  if (!$('#script').value.trim()) return toast('먼저 대본을 써 주세요');
+  openCoach(); sendCoach('내 대본을 봐 줘. 흐름이 자연스러운지, 고2 친구들이 알아듣기 쉬운지 알려 줘.', '대본 다듬기');
+};
+function openCoach(){
+  $('#scrim').classList.remove('hidden'); $('#coach').classList.remove('hidden');
+  if (!S.coachMsgs.length) renderMsgs();
+  setTimeout(() => $('#cin').focus(), 50);
+}
+function renderMsgs(){
+  const box = $('#msgs');
+  const intro = sheetUrl()
+    ? '안녕하세요! 발표 코치예요. 대본과 최근 리허설 결과를 같이 보고 있어요. 정답을 바로 알려 주기보다 같이 생각해 볼게요.'
+    : 'AI 코치는 선생님이 구글 시트를 연결하면 쓸 수 있어요. 선생님께 받은 링크로 들어왔는지 확인해 주세요.';
+  box.innerHTML = `<div class="msg sys">${intro}</div>` + S.coachMsgs.map(m => `<div class="msg ${m.role === 'coach' ? 'coach' : 'mine'}">${esc(m.text)}</div>`).join('');
+  box.scrollTop = box.scrollHeight;
+}
+$$('#quick button').forEach(b => b.onclick = () => sendCoach(b.textContent, '빠른 질문'));
+$('#cSend').onclick = () => sendCoach($('#cin').value);
+$('#cin').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing){ e.preventDefault(); sendCoach($('#cin').value); } });
+async function sendCoach(text, kind = '대화'){
+  text = String(text || '').trim(); if (!text || S._coachBusy) return;
+  if (!sheetUrl()){ renderMsgs(); return toast('선생님 시트가 연결되어야 AI 코치를 쓸 수 있어요'); }
+  if (!student().name) toast('이름을 입력하면 선생님이 누구의 대화인지 알 수 있어요');
+  S.coachMsgs.push({ role:'me', text }); $('#cin').value = ''; renderMsgs();
+  S._coachBusy = true; $('#msgs').insertAdjacentHTML('beforeend', '<div class="msg sys" id="typing">코치가 생각하는 중…</div>'); $('#msgs').scrollTop = 1e6;
+  const lastRec = S.report || store.get('rh_records', []).filter(r => stuKey(r.student) === stuKey(student())).slice(-1)[0];
+  const mission = store.get('rh_missions', {})[stuKey(student())]?.list?.join(' / ') || '';
+  try{
+    const j = await callSheet({ action:'coach', kind, student: student(), script: $('#script').value, reportSummary: lastRec?.items ? reportSummary(lastRec) : '', mission, messages: S.coachMsgs.slice(-12) });
+    S.coachMsgs.push({ role:'coach', text: j.reply });
+  }catch(err){ console.error(err); S.coachMsgs.push({ role:'coach', text:'(연결이 잠깐 끊겼어요. 조금 뒤에 다시 보내 주세요.)' }); }
+  S._coachBusy = false; renderMsgs();
+}
+
+/* ---------- history ---------- */
+$('#bHistory').onclick = () => { renderHistory(); openModal('#history'); };
+function spark(vals, lo, hi, color, band){
+  if (vals.length < 2) return '<p class="note">2번 이상 연습하면 그래프가 보여요.</p>';
+  const W = 300, H = 70, mn = Math.min(lo, ...vals), mx = Math.max(hi, ...vals), y = v => H - 6 - (v - mn) / (mx - mn || 1) * (H - 12), x = i => 6 + i * (W - 12) / (vals.length - 1);
+  const bandRect = band ? `<rect x="0" y="${y(band[1])}" width="${W}" height="${y(band[0]) - y(band[1])}" fill="#e3f6ee"/>` : '';
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${bandRect}<polyline fill="none" stroke="${color}" stroke-width="2.5" points="${vals.map((v,i) => x(i)+','+y(v)).join(' ')}"/>${vals.map((v,i) => `<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${color}"/>`).join('')}</svg>`;
+}
+function renderHistory(){
+  const s = student(), mine = store.get('rh_records', []).filter(r => stuKey(r.student) === stuKey(s));
+  $('#histBody').innerHTML = `<h2>📊 ${esc(s.name || '내')} 리허설 기록</h2>
+    <p style="margin:0;color:var(--ink2);font-size:13.5px">이 기기에 저장된 기록이에요 (2학년 ${s.cls}반 ${s.num}번).</p>
+    ${mine.length ? `<div class="spark">
+      <div class="card"><b style="font-size:13px">발표 시간 (초록: 1:30~2:00)</b>${spark(mine.map(r => r.duration), 60, 150, '#14213d', [TARGET_MIN, TARGET_MAX])}</div>
+      <div class="card"><b style="font-size:13px">화면(청중) 보기 %</b>${spark(mine.map(r => r.gazeCamera ?? 0), 0, 100, '#ff6b3d')}</div>
+    </div>
+    <table class="hist"><thead><tr><th>회차</th><th>날짜</th><th>방식</th><th>시간</th><th>속도</th><th>반영</th><th>화면 보기</th><th>미션</th></tr></thead><tbody>
+    ${mine.map((r,i) => `<tr><td>${i+1}</td><td>${new Date(r.at).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</td><td>${r.mode === 'script' ? '1차' : '2차'}</td><td>${fmt(r.duration)}</td><td>${r.wpm || '-'}</td><td>${r.coverage ?? '-'}${r.coverage != null ? '%' : ''}</td><td>${r.gazeCamera ?? '-'}${r.gazeCamera != null ? '%' : ''}</td><td style="font-size:12.5px;color:var(--ink2)">${esc((r.mission||[]).join(' / '))}</td></tr>`).reverse().join('')}
+    </tbody></table>` : '<p class="note" style="margin-top:16px">아직 기록이 없어요. 첫 리허설을 해 볼까요?</p>'}`;
+}
+
+/* ---------- teacher ---------- */
+$('#bTeacher').onclick = () => {
+  $('#sheetUrl').value = store.get('rh_sheet', '') || SHEET_URL; updateStuLink();
+  $('#gsBox').value = $('#gsCode').textContent.trim(); openModal('#teacher');
+};
+function updateStuLink(){ const u = $('#sheetUrl').value.trim(); $('#stuLink').value = u ? location.origin + location.pathname + '?sheet=' + encodeURIComponent(u) : '(먼저 웹 앱 주소를 저장해 주세요)'; }
+$('#sheetUrl').addEventListener('input', updateStuLink);
+$('#bSheetSave').onclick = async () => {
+  const u = $('#sheetUrl').value.trim(), st = $('#sheetTest');
+  if (!/^https:\/\/script\.google\.com\/.+\/exec/.test(u)){ st.textContent = '⚠ "https://script.google.com/…/exec" 형태의 주소를 넣어 주세요.'; return; }
+  store.set('rh_sheet', u); renderSheetState(); updateStuLink(); st.textContent = '연결 확인 중…';
+  try{ const j = await callSheet({ action:'ping' }); st.textContent = j.coach ? '✅ 연결 성공! 기록 저장 + AI 코치 모두 켜졌어요.' : '✅ 연결 성공! (AI 코치 키는 아직 없음 → 3단계 확인)'; }
+  catch(err){ console.error(err); st.textContent = '⚠ 연결 실패. 배포 시 액세스 권한이 "모든 사용자"인지 확인해 주세요.'; }
+};
+$('#bSheetClear').onclick = () => { store.set('rh_sheet', ''); $('#sheetUrl').value = ''; updateStuLink(); renderSheetState(); $('#sheetTest').textContent = '연결을 해제했어요.'; };
+async function copy(text, msg){ try{ await navigator.clipboard.writeText(text); toast(msg); }catch{ toast('복사가 안 되면 칸을 눌러 직접 선택해서 복사해 주세요'); } }
+$('#bCopyLink').onclick = () => { if ($('#sheetUrl').value.trim()) copy($('#stuLink').value, '학생용 링크를 복사했어요'); };
+$('#bCopyCode').onclick = () => copy($('#gsBox').value, 'Apps Script 코드를 복사했어요');
+
+/* ---------- modal helpers ---------- */
+function openModal(sel){ $('#scrim').classList.remove('hidden'); $(sel).classList.remove('hidden'); }
+function closeAll(){ ['#scrim','#coach','#history','#teacher'].forEach(s => $(s).classList.add('hidden')); }
+$('#scrim').onclick = closeAll;
+$$('[data-close]').forEach(b => b.onclick = closeAll);
+
+/* ---------- init ---------- */
+setMode('script'); loadScriptFor(); renderMission(); renderSheetState();
+</script>
+</body>
+</html>
