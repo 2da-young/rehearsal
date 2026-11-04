@@ -507,8 +507,9 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
  * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필 → 버전: 새 버전 으로 다시 배포해야 반영됩니다.
  */
 
-// 모델 이름: 'gemini-flash-latest'는 항상 최신 Flash 모델을 가리킵니다.
-const GEMINI_MODEL = 'gemini-flash-latest';
+// 모델 이름: 앞에서부터 차례로 시도합니다. ('gemini-flash-latest'는 항상 최신 Flash 모델)
+// 앞 모델이 바쁘거나(503) 없으면(404) 다음 모델로 넘어갑니다. 뒤쪽 lite 모델은 덜 붐벼요.
+const GEMINI_MODELS = ['gemini-flash-latest', 'gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-flash-lite-latest'];
 
 const RECORD_SHEET = '리허설기록';
 const COACH_SHEET = '질문기록';
@@ -521,7 +522,7 @@ const RECORD_HEADERS = [
   '다음 미션', '성찰1: 잘된 점', '성찰2: 고칠 점', '성찰3: 청중 질문', '대본', '인식된 말', '기록ID'
 ];
 const COACH_HEADERS = ['시각', '반', '번호', '이름', '종류', '학생 질문', '코치 답변'];
-const PRON_HEADERS = ['시각', '반', '번호', '이름', '단어', '종류', '어려운 소리', '이렇게 들림', '시도', '통과', '완료'];
+const PRON_HEADERS = ['시각', '반', '번호', '이름', '단어', '종류', '어려운 소리', '이렇게 들림', '시도', '통과', '완료', '기록ID'];
 
 const COACH_SYSTEM = [
   '너는 한국 고등학교 2학년 영어 말하기 수행평가를 돕는 친절한 발표 코치다.',
@@ -548,8 +549,7 @@ function doPost(e) {
       return json_({ ok: true, coach: !!PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY') });
     }
     if (d.action === 'pron') {
-      const s = d.student || {};
-      sheet_(PRON_SHEET, PRON_HEADERS).appendRow([new Date(), s.cls, s.num, s.name, d.word, d.kind, d.sounds, d.heardAs, d.tries, d.pass, d.done ? '✓' : '']);
+      savePron_(d);
       return json_({ ok: true });
     }
     if (d.action === 'reflect') {
@@ -591,9 +591,28 @@ function recordSheet_() {
   return sh;
 }
 
-function findRow_(sh, id) {
+// 발음 연습: 같은 리허설의 같은 단어는 한 줄을 계속 업데이트
+function savePron_(d) {
+  const s = d.student || {};
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sh = sheet_(PRON_SHEET, PRON_HEADERS);
+    if (sh.getLastColumn() < PRON_HEADERS.length) {
+      sh.getRange(1, 1, 1, PRON_HEADERS.length).setValues([PRON_HEADERS]).setFontWeight('bold').setBackground('#eef2ff');
+    }
+    const row = [new Date(), s.cls, s.num, s.name, d.word, d.kind, d.sounds, d.heardAs || '', d.tries, d.pass, d.done ? '✓' : '', d.id || ''];
+    const at = findRow_(sh, d.id, PRON_HEADERS.length);
+    if (at) sh.getRange(at, 1, 1, row.length).setValues([row]);
+    else sh.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function findRow_(sh, id, idCol) {
   if (!id || sh.getLastRow() < 2) return 0;
-  const col = RECORD_HEADERS.length;
+  const col = idCol || RECORD_HEADERS.length;
   const ids = sh.getRange(2, col, sh.getLastRow() - 1, 1).getValues();
   for (let i = ids.length - 1; i >= 0; i--) if (String(ids[i][0]) === String(id)) return i + 2;
   return 0;
@@ -651,24 +670,53 @@ function coach_(d) {
     contents.push({ role: m.role === 'coach' ? 'model' : 'user', parts: [{ text: String(m.text).slice(0, 4000) }] });
   });
 
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent?key=' + key;
-  const res = UrlFetchApp.fetch(url, {
-    method: 'post',
-    contentType: 'application/json',
-    muteHttpExceptions: true,
-    payload: JSON.stringify({
-      systemInstruction: { parts: [{ text: COACH_SYSTEM }] },
-      contents: contents,
-      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-    })
+  const payload = JSON.stringify({
+    systemInstruction: { parts: [{ text: COACH_SYSTEM }] },
+    contents: contents,
+    generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
   });
-  const body = JSON.parse(res.getContentText());
-  if (res.getResponseCode() !== 200) {
-    return '(AI 코치 연결 오류: ' + ((body.error && body.error.message) || res.getResponseCode()) + ')';
+  let lastErr = '';
+  const started = Date.now();
+  for (let k = 0; k < GEMINI_MODELS.length * 2; k++) {
+    if (Date.now() - started > 40000) break;                 // 학생이 너무 오래 기다리지 않게 40초 제한
+    const model = GEMINI_MODELS[k % GEMINI_MODELS.length];
+    if (k >= GEMINI_MODELS.length) Utilities.sleep(1500);     // 한 바퀴 다 바빴으면 잠깐 쉬고 한 번 더
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent';
+    const res = UrlFetchApp.fetch(url, {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { 'x-goog-api-key': key.trim() }, payload: payload
+    });
+    const code = res.getResponseCode();
+    let body = {};
+    try { body = JSON.parse(res.getContentText()); } catch (e) {}
+    if (code === 200) {
+      const parts = (body.candidates && body.candidates[0] && body.candidates[0].content && body.candidates[0].content.parts) || [];
+      const text = parts.map(function (p) { return p.text || ''; }).join('').trim();
+      return text || '(답변을 만들지 못했어요. 질문을 조금 바꿔서 다시 보내 볼까요?)';
+    }
+    const msg = (body.error && body.error.message) || ('HTTP ' + code);
+    lastErr = explainError_(code, msg);
+    console.log('Gemini ' + model + ' → ' + code + ' ' + msg);
+    // 모델 이름 문제(404), 일시적 과부하(500/503), 모델별 한도(429)일 때 다음 모델로
+    if (!(code === 404 || code === 500 || code === 503 || code === 429)) break;
   }
-  const parts = (body.candidates && body.candidates[0] && body.candidates[0].content && body.candidates[0].content.parts) || [];
-  const text = parts.map(function (p) { return p.text || ''; }).join('').trim();
-  return text || '(답변을 만들지 못했어요. 질문을 조금 바꿔서 다시 보내 볼까요?)';
+  return '(AI 코치 연결 오류: ' + lastErr + ')';
+}
+
+function explainError_(code, msg) {
+  if (/API key not valid|API_KEY_INVALID/i.test(msg)) return 'API 키가 올바르지 않아요. 스크립트 속성의 GEMINI_API_KEY 값을 다시 복사해 넣어 주세요.';
+  if (code === 403) return 'API 키에 권한이 없어요. AI Studio에서 키를 새로 만들어 넣어 주세요. [' + msg + ']';
+  if (code === 503 || code === 500 || /high demand|overloaded|UNAVAILABLE/i.test(msg)) return '지금 AI 서버가 많이 붐벼요. 1~2분 뒤에 다시 보내 주세요.';
+  if (code === 429) return '사용량 한도를 넘었어요. 1~2분 뒤 다시 시도해 주세요. [' + msg + ']';
+  if (code === 404) return '모델을 찾지 못했어요. [' + msg + ']';
+  if (/location is not supported/i.test(msg)) return '지역 제한으로 사용할 수 없어요. [' + msg + ']';
+  return msg;
+}
+
+// Apps Script 편집기에서 이 함수를 선택하고 ▶실행 → 아래 [실행 로그]에서 결과 확인
+function testCoach() {
+  const reply = coach_({ script: 'Hi everyone. My hobby is baseball. Why does a curveball curve?', messages: [{ role: 'me', text: '내 대본 흐름 봐 줘' }] });
+  console.log(reply);
 }
 
 function logCoach_(d, reply) {
@@ -1312,18 +1360,18 @@ function followAlong(card){
     else if (ok) res.innerHTML = '<b style="color:var(--good)">✓ 잘 들렸어요!</b> 한 번 더!';
     else res.innerHTML = `이렇게 들렸어요 → <b style="color:var(--fix)">${esc(alts[0] || '?')}</b>`;
     if (!ok && p.tries >= 6 && p.pass < 3) res.innerHTML += '<br><span style="color:var(--mute)">6번 도전했어요. 듣기를 몇 번 더 듣고 다음에 다시 해 봐요.</span>';
-    if (!p.logged && (p.pass >= 3 || p.tries >= 6)) logPron(p);
+    logPron(p);
   };
   r.onerror = e => { res.textContent = e.error === 'no-speech' ? '소리가 안 들렸어요. 다시 눌러 말해 보세요.' : '마이크를 확인해 주세요.'; };
   r.onend = () => { S._follow = null; btn.textContent = '🎙 따라 말하기'; btn.classList.remove('on'); if (!got && !res.textContent) res.textContent = '다시 눌러 말해 보세요.'; };
   try{ res.textContent = ''; r.start(); }catch{ S._follow = null; }
 }
 function logPron(p){
-  p.logged = true;
   if (!sheetUrl()) return;
-  callSheet({ action: 'pron', student: S.report?.student || student(), word: p.word, kind: p.kind, sounds: p.sounds.join(', '),
+  const R = S.report;
+  callSheet({ action: 'pron', id: `${R?.at || Date.now()}-${stuKey(R?.student || student())}-${normW(p.word)}`, student: R?.student || student(), word: p.word, kind: p.kind, sounds: p.sounds.join(', '),
     heardAs: p.heardAs || p.lastHeard || '', tries: p.tries, pass: Math.min(3, p.pass), done: p.pass >= 3 })
-    .catch(err => { console.error(err); p.logged = false; });
+    .catch(err => console.error(err));
 }
 function playMyVideo(t){
   const v = $('#pbVideo'); if (!v) return toast('녹화 영상이 없어요');
