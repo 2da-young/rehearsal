@@ -215,6 +215,19 @@ video.play{width:100%;border-radius:12px;background:#000;max-height:360px}
 .pc .fres{font-size:12.5px;min-height:18px;color:var(--ink2)}
 @media (max-width:980px){ .pw{grid-template-columns:1fr 1fr} .pc:nth-child(3n){border-right:1px solid var(--line)} .pc:nth-child(2n){border-right:0} }
 @media (max-width:560px){ .pw{grid-template-columns:1fr} .pc{border-right:0!important} }
+.tts{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfcfe}
+.ttsbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ttsbar b{font-size:14px;margin-right:4px}
+.ttsl{font-size:12.5px;color:var(--ink2);font-weight:600;display:flex;align-items:center;gap:5px}
+.ttsl select{padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:13px;max-width:190px}
+.ttstext{font-size:16px;line-height:2;max-height:340px;overflow:auto}
+.ttstext .sen{display:inline;padding:2px 2px;border-radius:6px;transition:background .15s}
+.ttstext .sen.cur{background:#fff1b8}
+.ttstext .pl{display:inline-grid;place-items:center;width:20px;height:20px;margin:0 3px 0 1px;border-radius:50%;background:var(--ink);color:#fff;font-size:9px;vertical-align:2px}
+.ttstext .pl:hover{background:var(--acc)}
+.ttstext .wd{cursor:pointer;border-radius:4px;padding:0 1px}
+.ttstext .wd:hover{background:var(--blue2);color:var(--blue)}
+.ttstext .wd.say{background:var(--acc);color:#fff}
 .missed{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .missed span{font-size:12.5px;padding:2px 8px;border-radius:7px;background:var(--fix2);color:var(--fix);font-weight:600}
 .refl label{display:block;font-size:13.5px;font-weight:700;margin:12px 0 5px}
@@ -343,8 +356,20 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
         <div class="tools">
           <button class="btn sm" id="bSave">💾 대본 저장</button>
           <button class="btn sm" id="bSample">샘플 대본</button>
+          <button class="btn sm" id="bTts">🔊 대본 발음 듣기</button>
           <button class="btn sm" id="bPolish">✨ AI 코치에게 대본 보여주기</button>
           <span id="saved" class="note" style="margin:0 0 0 auto;align-self:center"></span>
+        </div>
+        <div id="ttsBox" class="tts hidden">
+          <div class="ttsbar">
+            <b>🔊 대본 발음 듣기</b>
+            <button class="btn sm pri" id="ttsPlay">▶ 처음부터 듣기</button>
+            <button class="btn sm" id="ttsStop">■ 멈춤</button>
+            <label class="ttsl">속도 <select id="ttsRate"><option value="0.6">천천히</option><option value="0.8">조금 천천히</option><option value="0.95" selected>보통</option><option value="1.1">조금 빠르게</option></select></label>
+            <label class="ttsl">목소리 <select id="ttsVoice"></select></label>
+          </div>
+          <p class="note" style="margin:6px 0 8px">문장 앞 <b>▶</b>를 누르면 그 문장부터 이어서 들려줘요. <b>단어를 누르면</b> 그 단어만 들려줘요.</p>
+          <div id="ttsText" class="ttstext"></div>
         </div>
         <div id="kwBox" class="hidden" style="margin-top:14px">
           <div class="row" style="justify-content:space-between"><b style="font-size:14px">🔑 키워드 메모 (2차용 · 한 줄에 하나)</b><button class="btn sm" id="bKw">대본에서 자동 추출</button></div>
@@ -1014,6 +1039,7 @@ function startRecog(){
 /* ---------- stage ---------- */
 $('#bStart').onclick = beginRehearsal;
 function beginRehearsal(){
+  ttsStop();
   if (!S.stream) return toast('먼저 카메라를 켜 주세요');
   const s = student();
   if (!s.name){ $('#name').focus(); return toast('이름을 입력해 주세요'); }
@@ -1246,11 +1272,71 @@ function practiceWords(R, al){
   });
   return out.sort((x, y) => y.score - x.score).slice(0, 9);
 }
+/* ---------- script read-aloud (TTS) ---------- */
+const TTS = { sents: [], idx: -1, playing: false };
+function enVoices(){ return (window.speechSynthesis ? speechSynthesis.getVoices() : []).filter(v => /^en[-_]/i.test(v.lang)); }
+function fillVoices(){
+  const vs = enVoices(), sel = $('#ttsVoice'); if (!sel) return;
+  const saved = store.get('rh_voice', '');
+  const rank = v => (/en[-_]US/i.test(v.lang) ? 0 : /en[-_]GB/i.test(v.lang) ? 1 : 2) + (/google|natural|online|samantha|aria|jenny/i.test(v.name) ? 0 : 0.5);
+  const sorted = [...vs].sort((a, b) => rank(a) - rank(b));
+  sel.innerHTML = sorted.length ? sorted.map(v => `<option value="${esc(v.name)}">${esc(v.name.replace(/^(Microsoft|Google)\s*/,'').slice(0, 28))} (${v.lang})</option>`).join('') : '<option value="">기본 영어 목소리</option>';
+  if (saved && sorted.some(v => v.name === saved)) sel.value = saved;
+}
+if (window.speechSynthesis){ speechSynthesis.onvoiceschanged = fillVoices; }
+function pickVoice(){ const n = $('#ttsVoice')?.value; return enVoices().find(v => v.name === n) || enVoices().find(v => /en[-_]US/i.test(v.lang)) || null; }
+function splitSentences(text){
+  return String(text).replace(/\s+/g, ' ').trim().split(/(?<=[.?!])\s+(?=["'A-Z0-9])/).filter(s => s.trim());
+}
+function renderTts(){
+  TTS.sents = splitSentences($('#script').value);
+  const box = $('#ttsText');
+  if (!TTS.sents.length){ box.innerHTML = '<span class="note">대본을 쓰면 여기서 발음을 들을 수 있어요.</span>'; return; }
+  box.innerHTML = TTS.sents.map((s, i) => `<span class="sen" data-s="${i}"><span class="pl" data-from="${i}" title="이 문장부터 듣기">▶</span>${
+    s.split(TOK_RE).map((x, k) => k % 2 ? `<span class="wd">${esc(x)}</span>` : esc(x)).join('')}</span> `).join('');
+}
+function ttsSay(text, rate, onend){
+  if (!window.speechSynthesis) { toast('이 브라우저는 읽어 주기를 지원하지 않아요'); return; }
+  const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = rate;
+  const v = pickVoice(); if (v) u.voice = v;
+  if (onend){ u.onend = onend; u.onerror = onend; }
+  speechSynthesis.speak(u);
+}
+function ttsMark(i){ $$('#ttsText .sen').forEach(e => e.classList.toggle('cur', +e.dataset.s === i)); const c = $(`#ttsText .sen[data-s="${i}"]`); if (c) c.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+function ttsPlayFrom(i){
+  ttsStop(); TTS.playing = true; TTS.idx = i; const rate = +$('#ttsRate').value, run = TTS.run = {};
+  const next = () => {
+    if (!TTS.playing || TTS.run !== run) return;
+    if (TTS.idx >= TTS.sents.length){ ttsStop(); return; }
+    ttsMark(TTS.idx);
+    ttsSay(TTS.sents[TTS.idx], rate, () => { if (TTS.run !== run) return; TTS.idx++; setTimeout(next, 250); });
+  };
+  $('#ttsPlay').textContent = '▶ 듣는 중…';
+  next();
+}
+function ttsStop(){
+  TTS.playing = false; TTS.run = null; if (window.speechSynthesis) speechSynthesis.cancel();
+  ttsMark(-1); const b = $('#ttsPlay'); if (b) b.textContent = '▶ 처음부터 듣기';
+}
+$('#bTts').onclick = () => {
+  const box = $('#ttsBox'), open = box.classList.toggle('hidden') === false;
+  if (open){ fillVoices(); renderTts(); box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } else ttsStop();
+};
+$('#ttsPlay').onclick = () => { if (TTS.playing) return; renderTts(); ttsPlayFrom(0); };
+$('#ttsStop').onclick = ttsStop;
+$('#ttsVoice').onchange = () => store.set('rh_voice', $('#ttsVoice').value);
+$('#ttsText').addEventListener('click', e => {
+  const pl = e.target.closest('.pl'); if (pl) return ttsPlayFrom(+pl.dataset.from);
+  const wd = e.target.closest('.wd'); if (!wd) return;
+  ttsStop(); wd.classList.add('say'); ttsSay(wd.textContent, Math.min(0.85, +$('#ttsRate').value), () => wd.classList.remove('say'));
+});
+$('#script').addEventListener('input', () => { if (!$('#ttsBox').classList.contains('hidden')){ clearTimeout(S._tts); S._tts = setTimeout(() => { if (!TTS.playing) renderTts(); }, 700); } });
+
 function speak(text, rate = 0.95){
   if (!window.speechSynthesis) return toast('이 브라우저는 읽어 주기를 지원하지 않아요');
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = rate;
-  const v = speechSynthesis.getVoices().find(v => /en[-_]US/i.test(v.lang) && /google|samantha|aria|jenny/i.test(v.name)) || speechSynthesis.getVoices().find(v => /en[-_]US/i.test(v.lang));
+  const v = pickVoice() || speechSynthesis.getVoices().find(v => /en[-_]US/i.test(v.lang));
   if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
