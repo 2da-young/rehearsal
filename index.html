@@ -182,6 +182,39 @@ textarea.script:focus,.field input:focus,.field select:focus{outline:2px solid #
 video.play{width:100%;border-radius:12px;background:#000;max-height:360px}
 .trans{font-size:14.5px;line-height:1.8;max-height:260px;overflow:auto;padding:12px 14px;background:#fafbfd;border:1px solid var(--line);border-radius:12px}
 .trans mark{background:#ffe1d4;color:#b4380f;border-radius:4px;padding:0 3px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.cmp h3{margin:0 0 6px;font-size:14px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cmp h3 small{font-weight:600;color:var(--mute);font-size:12.5px}
+.cbox{font-size:15px;line-height:1.95;max-height:420px;overflow:auto;padding:14px 16px;background:#fafbfd;border:1px solid var(--line);border-radius:12px;white-space:pre-wrap;word-break:keep-all}
+.cbox .h{background:#e3f6ee;color:#0b6b49;border-radius:4px;padding:1px 1px}
+.cbox .u{color:#d02a3d;font-weight:700;text-decoration:underline wavy #f19aa5;text-underline-offset:4px}
+.cbox .x{background:#e8edff;color:#3557e8;border-radius:4px;padding:1px 2px;font-weight:600}
+.cbox mark{background:#ffe1d4;color:#b4380f;border-radius:4px;padding:0 3px}
+.clegend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink2);margin:4px 0 10px}
+.clegend b{font-weight:700;padding:0 5px;border-radius:4px}
+@media (max-width:980px){ .cmp{grid-template-columns:1fr} }
+.pw{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:12px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pc{padding:16px 16px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:8px}
+.pc:nth-child(3n){border-right:0}
+.pc .top1{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.pc .w{font-size:22px;font-weight:800;letter-spacing:-.3px;font-family:Georgia,"Times New Roman",serif}
+.pc .tg{font-size:11px;font-weight:700;padding:2px 7px;border:1px solid #d9b8a8;color:#8a4a2c;background:#fff7f2;border-radius:5px;white-space:nowrap}
+.pc .ctx{font-size:13px;color:var(--ink2);line-height:1.55}
+.pc .ctx b{background:#ffe36e;color:var(--ink);padding:0 3px;border-radius:3px}
+.pc .heard{font-size:13px;color:var(--ink2)}
+.pc .heard b{color:var(--fix)}
+.pc .tips{border-left:3px solid var(--blue);background:#f5f6fa;padding:7px 10px;font-size:12.5px;line-height:1.6;color:var(--ink2);border-radius:0 8px 8px 0}
+.pc .acts{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
+.pc .acts button{font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;padding:4px 0}
+.pc .acts button.blk{background:var(--ink);color:#fff;text-decoration:none;padding:7px 12px;border-radius:8px}
+.pc .acts button.blk.on{background:var(--fix)}
+.pc .dots{margin-left:auto;display:flex;gap:3px}
+.pc .dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid #9aa3b5}
+.pc .dots i.ok{background:var(--good);border-color:var(--good)}
+.pc .dots i.no{background:var(--fix2);border-color:var(--fix)}
+.pc .fres{font-size:12.5px;min-height:18px;color:var(--ink2)}
+@media (max-width:980px){ .pw{grid-template-columns:1fr 1fr} .pc:nth-child(3n){border-right:1px solid var(--line)} .pc:nth-child(2n){border-right:0} }
+@media (max-width:560px){ .pw{grid-template-columns:1fr} .pc{border-right:0!important} }
 .missed{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 .missed span{font-size:12.5px;padding:2px 8px;border-radius:7px;background:var(--fix2);color:var(--fix);font-weight:600}
 .refl label{display:block;font-size:13.5px;font-weight:700;margin:12px 0 5px}
@@ -1112,13 +1145,162 @@ addEventListener('keydown', e => {
   if (e.key === 'f' || e.key === 'F') toggleFull();
 });
 
+/* ---------- script vs speech comparison ---------- */
+const NUMW = {zero:'0',one:'1',two:'2',three:'3',four:'4',five:'5',six:'6',seven:'7',eight:'8',nine:'9',ten:'10',eleven:'11',twelve:'12',thirteen:'13',fourteen:'14',fifteen:'15',sixteen:'16',seventeen:'17',eighteen:'18',nineteen:'19',twenty:'20',thirty:'30',forty:'40',fifty:'50',sixty:'60',seventy:'70',eighty:'80',ninety:'90',hundred:'100'};
+const TOK_RE = /([A-Za-z0-9]+(?:['’][A-Za-z]+)?)/;
+function normW(w){
+  w = w.toLowerCase().replace(/’/g, "'");
+  if (NUMW[w]) return NUMW[w];
+  w = w.replace(/'s$/, '');
+  if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) w = w.slice(0, -1);
+  return w;
+}
+function alignWords(scriptText, spokenText){
+  const sTok = String(scriptText || '').split(TOK_RE), pTok = String(spokenText || '').split(TOK_RE);
+  const sIdx = [], pIdx = [];
+  sTok.forEach((x, i) => { if (i % 2 === 1) sIdx.push(i); });
+  pTok.forEach((x, i) => { if (i % 2 === 1) pIdx.push(i); });
+  const a = sIdx.map(i => normW(sTok[i])), b = pIdx.map(i => normW(pTok[i]));
+  const n = a.length, m = b.length, W = m + 1;
+  const dp = new Uint16Array((n + 1) * (m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    dp[i*W + j] = a[i] === b[j] ? dp[(i+1)*W + j + 1] + 1 : Math.max(dp[(i+1)*W + j], dp[i*W + j + 1]);
+  const sHit = new Set(), pHit = new Set(), pairs = [];
+  let i = 0, j = 0;
+  while (i < n && j < m){
+    if (a[i] === b[j]){ sHit.add(sIdx[i]); pHit.add(pIdx[j]); pairs.push([i, j]); i++; j++; }
+    else if (dp[(i+1)*W + j] >= dp[i*W + j + 1]) i++; else j++;
+  }
+  // gaps between matches: pair unmatched script words with unmatched spoken words → "이렇게 들렸어요"
+  const heardAs = {}, sOrdToP = {};
+  const bounds = [[-1, -1], ...pairs, [n, m]];
+  for (let q = 0; q < bounds.length - 1; q++){
+    const [s0, p0] = bounds[q], [s1, p1] = bounds[q+1];
+    const gs = [], gp = [];
+    for (let x = s0 + 1; x < s1; x++) gs.push(x);
+    for (let y = p0 + 1; y < p1; y++) if (!FILLER_ONE.test(pTok[pIdx[y]])) gp.push(y);
+    gs.forEach((x, k) => {
+      sOrdToP[x] = gp.length ? gp[Math.min(k, gp.length - 1)] : Math.max(0, p0 + 1 > m - 1 ? m - 1 : p0 + 1);
+      if (gs.length <= 3 && gp.length && gp.length <= gs.length + 1 && k < gp.length) heardAs[x] = pTok[pIdx[gp[k]]];
+    });
+  }
+  const sContent = sIdx.filter(k => contentWords(sTok[k]).length);
+  return { sTok, pTok, sIdx, pIdx, sHit, pHit, heardAs, sOrdToP, total: n, heard: sHit.size, extra: m - pHit.size,
+           contentTotal: sContent.length, contentHeard: sContent.filter(k => sHit.has(k)).length,
+           missedContent: [...new Set(sContent.filter(k => !sHit.has(k)).map(k => sTok[k].toLowerCase()))] };
+}
+function compareHtml(al){
+  const sHtml = al.sTok.map((x, i) => i % 2 ? `<span class="${al.sHit.has(i) ? 'h' : 'u'}">${esc(x)}</span>` : esc(x)).join('');
+  const pHtml = al.pTok.map((x, i) => {
+    if (i % 2 === 0) return esc(x);
+    if (FILLER_ONE.test(x)) return `<mark>${esc(x)}</mark>`;
+    return al.pHit.has(i) ? esc(x) : `<span class="x">${esc(x)}</span>`;
+  }).join('');
+  return { sHtml, pHtml };
+}
+
+/* ---------- word practice ---------- */
+function syllables(w){ return (w.toLowerCase().replace(/e$/, '').match(/[aeiouy]+/g) || []).length || 1; }
+function pronTips(w){
+  const x = w.toLowerCase(), tips = [];
+  if (/th/.test(x)) tips.push('th · 혀끝을 윗니 사이로 살짝 내밀고 바람을 내요 (ㄷ·ㅆ이 아니에요)');
+  if (/v/.test(x)) tips.push('v · 윗니를 아랫입술에 대고 목을 울려요 (ㅂ 아님)');
+  if (/f|ph/.test(x)) tips.push('f · 윗니를 아랫입술에 대고 바람만 내요 (ㅍ 아님)');
+  if (/r/.test(x)) tips.push('r · 혀끝이 입천장에 닿지 않게, 입술을 살짝 오므려요');
+  if (/l/.test(x)) tips.push('l · 혀끝을 윗잇몸에 꼭 붙였다 떼요');
+  if (/z/.test(x) || /(o|u|ea|ee|ie|i)se$/.test(x) || /^(is|was|has|his|as|does|goes|these|those)$/.test(x)) tips.push('z · 벌 소리처럼 목을 울려요');
+  if (/[^aeiou]ed$/.test(x)) tips.push('-ed · 끝소리를 "드"로 늘이지 말고 짧게 끊어요');
+  if (syllables(x) >= 2) tips.push('강세 · 한 음절만 세고 길게, 나머지는 약하게 말해요');
+  if (/[bcdgkpt]$/.test(x)) tips.push('끝소리 · 뒤에 "으"를 붙이지 말고 짧게 끊어요');
+  if (!tips.length) tips.push('또박또박 · 입을 크게 움직여 천천히 말해 봐요');
+  return tips.slice(0, 2);
+}
+function sentenceOf(text, pos){
+  const st = Math.max(text.lastIndexOf('.', pos - 1), text.lastIndexOf('?', pos - 1), text.lastIndexOf('!', pos - 1), text.lastIndexOf('\n', pos - 1)) + 1;
+  const ends = ['.', '?', '!', '\n'].map(c => text.indexOf(c, pos)).filter(k => k >= 0);
+  return text.slice(st, ends.length ? Math.min(...ends) + 1 : text.length).trim();
+}
+function practiceWords(R, al){
+  // spoken word ordinal → time (start of the recognized segment)
+  const times = []; let prev = 0;
+  (R.segs || []).forEach(f => { const n = (f.text.match(new RegExp(TOK_RE.source, 'g')) || []).length; for (let k = 0; k < n; k++) times.push(Math.max(0, prev - 0.3)); prev = f.t; });
+  const offs = []; let o = 0; al.sTok.forEach((x, i) => { offs[i] = o; o += x.length; });
+  const n = al.sIdx.length, seen = new Set(), out = [];
+  const heardSomewhere = new Set(al.sIdx.filter(k => al.sHit.has(k)).map(k => normW(al.sTok[k])));
+  al.sIdx.forEach((tk, ord) => {
+    const w = al.sTok[tk];
+    if (al.sHit.has(tk) || !contentWords(w).length || w.length < 3) return;
+    const before = al.sTok.slice(Math.max(0, tk - 3), tk).join('');
+    if (/^[A-Z]/.test(w) && !/(^|[.?!\n]\s*)$/.test(before)) return; // skip names / proper nouns
+    const key = normW(w); if (seen.has(key) || heardSomewhere.has(key)) return; seen.add(key);
+    const ctxA = al.sTok.slice(Math.max(0, tk - 10), tk).join(''), ctxB = al.sTok.slice(tk + 1, tk + 8).join('');
+    const pj = al.sOrdToP[ord];
+    out.push({
+      word: w, heardAs: al.heardAs[ord] || null,
+      where: ord < n * 0.2 ? '도입' : ord > n * 0.8 ? '마무리' : '설명',
+      ctxA: (tk > 10 ? '… ' : '') + ctxA, ctxB: ctxB + (tk + 8 < al.sTok.length ? ' …' : ''),
+      sentence: sentenceOf(R.script, offs[tk]), tips: pronTips(w),
+      time: pj != null && times[pj] != null ? times[pj] : null,
+      score: (al.heardAs[ord] ? 3 : 0) + Math.min(3, w.length / 3)
+    });
+  });
+  return out.sort((x, y) => y.score - x.score).slice(0, 9);
+}
+function speak(text, rate = 0.95){
+  if (!window.speechSynthesis) return toast('이 브라우저는 읽어 주기를 지원하지 않아요');
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text); u.lang = 'en-US'; u.rate = rate;
+  const v = speechSynthesis.getVoices().find(v => /en[-_]US/i.test(v.lang) && /google|samantha|aria|jenny/i.test(v.name)) || speechSynthesis.getVoices().find(v => /en[-_]US/i.test(v.lang));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+if (window.speechSynthesis) speechSynthesis.getVoices();
+function followAlong(card){
+  if (!SR) return toast('따라 말하기는 Chrome에서 할 수 있어요');
+  if (S._follow) return;
+  const word = card.dataset.word, dots = card.querySelectorAll('.dots i'), res = card.querySelector('.fres');
+  const tries = [...dots].filter(d => d.className).length;
+  if (tries >= 3){ dots.forEach(d => d.className = ''); }
+  const r = new SR(); r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 5; r.continuous = false;
+  const btn = card.querySelector('[data-act=follow]'); btn.textContent = '🎙 듣는 중…'; btn.classList.add('on');
+  S._follow = r;
+  let got = false;
+  r.onresult = e => {
+    if (got) return; got = true; try{ r.stop(); }catch{}
+    const alts = [...e.results[0]].map(a => a.transcript.trim());
+    const ok = alts.some(a => words(a).map(normW).includes(normW(word)));
+    const slot = [...card.querySelectorAll('.dots i')].find(d => !d.className);
+    if (slot) slot.className = ok ? 'ok' : 'no';
+    res.innerHTML = ok ? '<b style="color:var(--good)">✓ 잘 들렸어요!</b>' : `이렇게 들렸어요 → <b style="color:var(--fix)">${esc(alts[0] || '?')}</b>`;
+  };
+  r.onerror = e => { res.textContent = e.error === 'no-speech' ? '소리가 안 들렸어요. 다시 눌러 말해 보세요.' : '마이크를 확인해 주세요.'; };
+  r.onend = () => { S._follow = null; btn.textContent = '🎙 따라 말하기'; btn.classList.remove('on'); if (!got && !res.textContent) res.textContent = '다시 눌러 말해 보세요.'; };
+  try{ res.textContent = ''; r.start(); }catch{ S._follow = null; }
+}
+function playMyVideo(t){
+  const v = $('#pbVideo'); if (!v) return toast('녹화 영상이 없어요');
+  v.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  try{ v.currentTime = Math.max(0, t); }catch{}
+  v.play().catch(()=>{});
+}
+function fixVideoDuration(v){
+  // MediaRecorder webm has no duration → make it seekable
+  v.addEventListener('loadedmetadata', () => {
+    if (v.duration === Infinity || isNaN(v.duration)){
+      const back = () => { v.removeEventListener('timeupdate', back); v.currentTime = 0; };
+      v.addEventListener('timeupdate', back); v.currentTime = 1e7;
+    }
+  }, { once: true });
+}
+
 /* ---------- analysis ---------- */
 const FILLER_RE = /\b(um+|uh+|uhm|umm|erm|er|ah+|hmm+|you know|i mean)\b/gi;
+const FILLER_ONE = /^(um+|uh+|uhm|umm|erm|er|ah+|hmm+)$/i;
 function analyze(dur){
   const s = student(), mode = S.mode;
   const transcript = S.finals.map(f => f.text).join(' ').replace(/\s+/g,' ').trim();
   const nWords = words(transcript).length;
-  const R = { at: Date.now(), student: s, mode, modeLabel: mode === 'script' ? '1차 대본 보며' : '2차 키워드만', duration: Math.round(dur), transcript, words: nWords, items: {} };
+  const R = { at: Date.now(), segs: S.finals.map(f => ({ t: +f.t.toFixed(2), text: f.text })), student: s, script: $('#script').value, keywords: $('#kw').value, mode, modeLabel: mode === 'script' ? '1차 대본 보며' : '2차 키워드만', duration: Math.round(dur), transcript, words: nWords, items: {} };
 
   // speaking span & pauses from volume
   const rs = S.vol.map(v => v.r);
@@ -1146,12 +1328,11 @@ function analyze(dur){
   // coverage
   const said = new Set(contentWords(transcript));
   if (mode === 'script'){
-    const scw = [...new Set(contentWords($('#script').value))];
-    const hit = scw.filter(w => said.has(w) || said.has(w.replace(/s$/,'')) || said.has(w + 's'));
-    R.coverage = scw.length ? Math.round(hit.length / scw.length * 100) : null;
-    R.missed = scw.filter(w => !hit.includes(w)).slice(0, 18);
+    const al = alignWords(R.script, transcript);
+    R.coverage = al.contentTotal ? Math.round(al.contentHeard / al.contentTotal * 100) : null;
+    R.missed = al.missedContent.slice(0, 18);
   } else {
-    const kws = $('#kw').value.split('\n').map(l => l.replace(/^Q:\s*/i,'')).filter(l => contentWords(l).length);
+    const kws = R.keywords.split('\n').map(l => l.replace(/^Q:\s*/i,'')).filter(l => contentWords(l).length);
     const ok = kws.filter(l => { const cw = contentWords(l); return cw.filter(w => said.has(w)).length >= Math.ceil(cw.length/2); });
     R.coverage = kws.length ? Math.round(ok.length / kws.length * 100) : null;
     R.missed = kws.filter(l => !ok.includes(l)).slice(0, 10);
@@ -1210,7 +1391,7 @@ function grade(R){
   const covName = R.mode === 'script' ? '대본 반영' : '키워드 반영';
   I.cov = R.coverage == null || !SR || !R.words ? { k: covName, v:'-', u:'', lv:'na', t: !SR ? na : !R.words ? '말소리가 인식되지 않았어요.' : (R.mode === 'script' ? '대본을 쓰면 확인할 수 있어요.' : '키워드를 쓰면 확인할 수 있어요.') }
     : { k: covName, v: R.coverage, u:'%', lv: R.coverage >= 80 ? 'good' : R.coverage >= 60 ? 'ok' : 'fix',
-        t: R.coverage >= 80 ? '준비한 내용을 거의 다 말했어요.' : '아래 "인식되지 않은 말"을 확인해 보세요. 발음이 흐리면 인식이 안 될 수도 있어요.' };
+        t: R.coverage >= 80 ? '준비한 내용을 거의 다 말했어요.' : '아래 "내 대본 vs 실제로 들린 말"에서 빨간 밑줄 부분을 확인해 보세요.' };
   if (R.gazeCamera == null){
     I.gaze = { k:'화면(청중) 보기', v:'-', u:'', lv:'na', t: S.vision.failed ? '시선 분석 도구를 불러오지 못했어요.' : '얼굴이 잘 보이지 않았어요. 카메라 정면에 앉아 주세요.' };
   } else {
@@ -1247,8 +1428,8 @@ function makeMission(R){
 /* ---------- records ---------- */
 function saveLocalRecord(R){
   const all = store.get('rh_records', []);
-  const { timeline, ...lite } = R;
-  all.push({ ...lite, script: $('#script').value });
+  const { timeline, segs, ...lite } = R;
+  all.push(lite);
   store.set('rh_records', all.slice(-200));
   const m = store.get('rh_missions', {}); m[stuKey(R.student)] = { list: R.mission, at: R.at }; store.set('rh_missions', m);
 }
@@ -1264,14 +1445,32 @@ function reportSummary(R){
 }
 
 /* ---------- report ---------- */
+function practiceHtml(R, al){
+  const list = practiceWords(R, al);
+  S._practice = list;
+  if (!list.length) return '<p class="note" style="margin-top:14px">🎉 다시 연습할 단어가 없어요. 대본의 중요한 단어가 모두 잘 들렸어요!</p>';
+  return `<h3 style="margin:22px 0 2px;font-size:16px">🗣 다시 연습할 단어 <small style="font-weight:500;color:var(--mute);font-size:12.5px">대본에 있었지만 컴퓨터가 알아듣지 못한 단어예요. 듣고 → 따라 말하기로 3번 도전해 보세요.</small></h3>
+  <div class="pw">${list.map((p, i) => `<div class="pc" data-i="${i}" data-word="${esc(p.word)}">
+    <div class="top1"><span class="w">${esc(p.word)}</span><span class="tg">${p.where} · ${p.heardAs ? '다르게 들림' : '안 들림'}</span></div>
+    <div class="ctx">${esc(p.ctxA)}<b>${esc(p.word)}</b>${esc(p.ctxB)}</div>
+    ${p.heardAs ? `<div class="heard">이렇게 들렸어요 → <b>${esc(p.heardAs)}</b></div>` : ''}
+    <div class="tips">${p.tips.map(esc).join('<br>')}</div>
+    <div class="acts">
+      <button data-act="listen">🔊 듣기</button><button data-act="slow">천천히</button><button class="blk" data-act="follow">🎙 따라 말하기</button>
+    </div>
+    <div class="acts">
+      <button data-act="sent">문장 듣기</button>${S.videoUrl && p.time != null ? `<button data-act="video">내 영상</button>` : ''}
+      <span class="dots"><i></i><i></i><i></i></span>
+    </div>
+    <div class="fres"></div>
+  </div>`).join('')}</div>`;
+}
 function renderReport(){
   const R = S.report, I = R.items, s = R.student;
   const lvTxt = { good:'좋아요', ok:'괜찮아요', fix:'연습 필요', na:'측정 안 됨' };
   const cnt = Object.values(I).reduce((a,i) => (a[i.lv] = (a[i.lv]||0) + 1, a), {});
   const ext = (S.mime || 'video/webm').includes('mp4') ? 'mp4' : 'webm';
   const tlCol = { camera:'#2fbf85', down:'#f0b43c', side:'#9aa7c4', none:'#e4e7ef' };
-  const said = new Set(contentWords(R.transcript));
-  const transHtml = R.transcript ? esc(R.transcript).replace(FILLER_RE, m => `<mark>${m}</mark>`) : '<span style="color:var(--mute)">인식된 말이 없어요.</span>';
   $('#report').innerHTML = `
     <section class="rhead">
       <div>
@@ -1285,6 +1484,18 @@ function renderReport(){
     </section>
     <section class="metrics">
       ${Object.values(I).map(i => `<div class="m ${i.lv}"><span class="b">${lvTxt[i.lv]}</span><span class="k">${i.k}</span><span class="v">${i.v}<small>${i.u}</small></span><span class="t">${esc(i.t)}</span></div>`).join('')}
+    </section>
+    <section class="card" style="margin-top:18px">
+      <h2>📝 대본 vs 실제 발화 <span style="font-weight:500;font-size:12.5px;color:var(--mute)">빨간 물결선은 인식되지 않은 단어예요</span></h2>
+      <p class="sub" style="margin-bottom:4px">대본과 조금 달라도 괜찮아요. 연습하면서 자연스럽게 나온 표현이 내 입에 더 잘 붙기도 해요. 오른쪽 실제 발화를 보고, 다음 연습 전에 대본을 내 말투에 맞게 고쳐 보세요.</p>
+      ${!R.words ? '<p class="note">인식된 말이 없어요. 마이크와 조금 더 가까이, 또렷하게 말해 보세요.</p>' : `
+      <div class="clegend"><span><b style="background:#e3f6ee;color:#0b6b49">초록</b> 대본에서 들린 말</span><span><b style="color:#d02a3d;text-decoration:underline wavy #f19aa5">빨간 밑줄</b> 대본에 있는데 안 들린 말</span><span><b style="background:#e8edff;color:#3557e8">파랑</b> 대본에 없던 말</span><span><b style="background:#ffe1d4;color:#b4380f">주황</b> 군말</span></div>
+      ${R.script.trim() ? (() => { const al = alignWords(R.script, R.transcript), h = compareHtml(al);
+        return `<div class="cmp">
+          <div><h3>📄 ${R.mode === 'script' ? '내 대본' : '원래 대본 (참고)'} <small>${al.total}단어 중 <b style="color:var(--good)">${al.heard}단어</b> 들림 (${al.total ? Math.round(al.heard/al.total*100) : 0}%)</small></h3><div class="cbox">${h.sHtml}</div></div>
+          <div><h3>🎙 실제로 들린 말 <small>${R.words}단어 · 대본에 없던 말 <b style="color:var(--blue)">${al.extra}단어</b></small></h3><div class="cbox">${h.pHtml}</div></div>
+        </div>${practiceHtml(R, al)}`; })() : `<div class="cbox">${esc(R.transcript).replace(FILLER_RE, m => `<mark>${m}</mark>`)}</div><p class="note">대본을 쓰면 대본과 나란히 비교해 줘요.</p>`}
+      ${R.mode === 'keywords' && R.missed?.length ? `<p style="margin:14px 0 0;font-size:13.5px;font-weight:700">말하지 않은(인식되지 않은) 키워드</p><div class="missed">${R.missed.map(w => `<span>${esc(w)}</span>`).join('')}</div>` : ''}`}
     </section>
     <div class="r2">
       <div class="col">
@@ -1304,18 +1515,12 @@ function renderReport(){
           <div class="flow">${R.flow.map(f => `<div class="${f.ok?'y':''}">${f.ok?'✓ ':''}${f.k}</div>`).join('')}</div>
           <p class="note">필수 단계는 아니에요. 다만 '궁금증 질문'과 '이유·원리'가 분명하면 설명 말하기가 훨씬 잘 전달돼요.</p>
         </section>
-        <section class="card">
-          <h2>📝 인식된 말</h2>
-          <p class="sub">컴퓨터가 알아들은 말이에요. 주황색은 군말이에요.</p>
-          <div class="trans">${transHtml}</div>
-          ${R.missed?.length && R.words ? `<p style="margin:12px 0 0;font-size:13.5px;font-weight:700">${R.mode === 'script' ? '대본에 있지만 인식되지 않은 단어' : '말하지 않은(인식되지 않은) 키워드'}</p><div class="missed">${R.missed.map(w => `<span>${esc(w)}</span>`).join('')}</div><p class="note">빠뜨렸거나, 발음이 흐려서 인식되지 않았을 수 있어요.</p>` : ''}
-        </section>
       </div>
       <div class="col">
         <section class="card">
           <h2>🎬 내 리허설 영상</h2>
           <p class="sub">영상은 이 기기에만 있어요. 창을 닫으면 사라지니 필요하면 저장해 두세요.</p>
-          ${S.videoUrl ? `<video class="play" src="${S.videoUrl}" controls playsinline></video>
+          ${S.videoUrl ? `<video class="play" id="pbVideo" src="${S.videoUrl}" controls playsinline></video>
           <div class="tools"><a class="btn sm" href="${S.videoUrl}" download="리허설_2-${s.cls}_${s.num}_${esc(s.name)}_${R.attempt}회차.${ext}">⬇ 영상 저장</a></div>` : '<p class="note">이 브라우저에서는 녹화가 되지 않았어요.</p>'}
         </section>
         <section class="card refl">
@@ -1338,12 +1543,23 @@ function renderReport(){
           </div>
         </section>
       </div>
-    </div>`;
+    </div>
+`;
   $('#report').classList.remove('hidden'); $('#topbar').classList.remove('hidden'); scrollTo(0,0);
   $('#bAgain').onclick = () => { $('#report').classList.add('hidden'); beginRehearsal(); };
   $('#bOther').onclick = () => { setMode(R.mode === 'script' ? 'keywords' : 'script'); $('#report').classList.add('hidden'); beginRehearsal(); };
   $('#bBack').onclick = backToSetup;
   $('#bSaveRec').onclick = saveRecord;
+  if ($('#pbVideo')) fixVideoDuration($('#pbVideo'));
+  $$('.pc').forEach(card => card.addEventListener('click', e => {
+    const act = e.target.closest('[data-act]')?.dataset.act; if (!act) return;
+    const p = S._practice[+card.dataset.i];
+    if (act === 'listen') speak(p.word, 0.9);
+    if (act === 'slow') speak(p.word, 0.5);
+    if (act === 'sent') speak(p.sentence, 0.9);
+    if (act === 'follow') followAlong(card);
+    if (act === 'video') playMyVideo(p.time);
+  }));
   $('#bAskCoach').onclick = () => { openCoach(); sendCoach('방금 리허설 결과를 봤어. 무엇부터 고치면 좋을까?', '리허설 결과'); };
 }
 async function saveRecord(){
