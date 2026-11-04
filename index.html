@@ -658,7 +658,7 @@ function json_(o) {
    설정: 선생님이 주소를 여기에 직접 넣어 두면 모든 학생에게 자동 연결돼요.
    (비워 두면 [선생님 설정]이나 ?sheet= 링크로 연결)
    ============================================================ */
-const SHEET_URL = '';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz2aBeHdkioY3i5lsVuimP8VQHs5Z0JQJPOkuvcYBaWrd0YaBPU0gIcCbgQWSaze_9sbQ/exec';
 
 const TARGET_MIN = 90, TARGET_MAX = 120, HARD_STOP = 180, WPM_BASE = 130;
 const MP_VER = '0.10.14';
@@ -1728,7 +1728,7 @@ $('#bTeacher').onclick = () => {
   $('#sheetUrl').value = store.get('rh_sheet', '') || SHEET_URL; updateStuLink();
   $('#gsBox').value = $('#gsCode').textContent.trim(); openModal('#teacher');
 };
-function updateStuLink(){ const u = $('#sheetUrl').value.trim(); $('#stuLink').value = u ? location.origin + location.pathname + '?sheet=' + encodeURIComponent(u) : '(먼저 웹 앱 주소를 저장해 주세요)'; }
+function updateStuLink(){ const u = $('#sheetUrl').value.trim(); $('#stuLink').value = (SHEET_URL && (!u || u === SHEET_URL)) ? location.origin + location.pathname : u ? location.origin + location.pathname + '?sheet=' + encodeURIComponent(u) : '(먼저 웹 앱 주소를 저장해 주세요)'; }
 $('#sheetUrl').addEventListener('input', updateStuLink);
 $('#bSheetSave').onclick = async () => {
   const u = $('#sheetUrl').value.trim(), st = $('#sheetTest');
@@ -1739,7 +1739,7 @@ $('#bSheetSave').onclick = async () => {
 };
 $('#bSheetClear').onclick = () => { store.set('rh_sheet', ''); $('#sheetUrl').value = ''; updateStuLink(); renderSheetState(); $('#sheetTest').textContent = '연결을 해제했어요.'; };
 async function copy(text, msg){ try{ await navigator.clipboard.writeText(text); toast(msg); }catch{ toast('복사가 안 되면 칸을 눌러 직접 선택해서 복사해 주세요'); } }
-$('#bCopyLink').onclick = () => { if ($('#sheetUrl').value.trim()) copy($('#stuLink').value, '학생용 링크를 복사했어요'); };
+$('#bCopyLink').onclick = () => { if ($('#sheetUrl').value.trim() || SHEET_URL) copy($('#stuLink').value, '학생용 링크를 복사했어요'); };
 $('#bCopyCode').onclick = () => copy($('#gsBox').value, 'Apps Script 코드를 복사했어요');
 
 /* ---------- modal helpers ---------- */
