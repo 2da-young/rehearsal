@@ -209,6 +209,7 @@ video.play{width:100%;border-radius:12px;background:#000;max-height:360px}
 .pc .dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid #9aa3b5}
 .pc .dots i.ok{background:var(--good);border-color:var(--good)}
 .pc .dots i.no{background:var(--fix2);border-color:var(--fix)}
+.pc.done{background:#f3fbf7}
 .pc .fres{font-size:12.5px;min-height:18px;color:var(--ink2)}
 @media (max-width:980px){ .pw{grid-template-columns:1fr 1fr} .pc:nth-child(3n){border-right:1px solid var(--line)} .pc:nth-child(2n){border-right:0} }
 @media (max-width:560px){ .pw{grid-template-columns:1fr} .pc{border-right:0!important} }
@@ -403,7 +404,7 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
 
       <section class="card" style="font-size:13px;color:var(--ink2)">
         <b style="font-size:14px;color:var(--ink)">🔒 영상은 이 기기 안에만 있어요</b>
-        <p style="margin:6px 0 0">녹화 영상, 시선·표정 분석은 모두 이 기기 안에서 처리돼요. 선생님 시트가 연결되어 있으면 <b>대본, 리허설 수치, 성찰 답변, AI 코치 대화</b>만 선생님께 저장돼요. 영상은 보내지 않아요.</p>
+        <p style="margin:6px 0 0">녹화 영상, 시선·표정 분석은 모두 이 기기 안에서 처리돼요. 선생님 시트가 연결되어 있으면 <b>대본, 리허설 수치, 성찰 답변, AI 코치 질문, 발음 연습 결과</b>만 선생님께 저장돼요. 영상은 보내지 않아요.</p>
         <p style="margin:6px 0 0" id="sheetState"></p>
       </section>
     </div>
@@ -467,7 +468,7 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
 <div class="modal hidden" id="teacher">
   <button class="x" data-close>×</button>
   <h2>⚙︎ 선생님 설정 · 구글 시트 연결</h2>
-  <p style="margin:0;color:var(--ink2);font-size:14px">연결하면 학생들의 <b>대본·리허설 수치·성찰 답변·AI 코치 대화</b>가 선생님 구글 시트에 쌓이고, AI 코치가 켜져요. 연결하지 않아도 앱은 이 기기 안에서 모두 동작해요.</p>
+  <p style="margin:0;color:var(--ink2);font-size:14px">연결하면 학생들의 <b>대본·리허설 수치·성찰 답변·AI 코치 질문·발음 연습 결과</b>가 선생님 구글 시트에 쌓이고, AI 코치가 켜져요. 연결하지 않아도 앱은 이 기기 안에서 모두 동작해요.</p>
   <h3>Apps Script 웹 앱 주소</h3>
   <input class="url" id="sheetUrl" placeholder="https://script.google.com/macros/s/..../exec">
   <div class="tools"><button class="btn sm pri" id="bSheetSave">저장 & 연결 테스트</button><button class="btn sm" id="bSheetClear">연결 해제</button><span class="note" id="sheetTest" style="margin:0;align-self:center"></span></div>
@@ -481,14 +482,14 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
     <li>시트 메뉴 <b>확장 프로그램 → Apps Script</b>를 열고, 원래 있던 코드를 지운 뒤 아래 코드를 <b>전부 붙여넣고 저장</b>해요.</li>
     <li>(AI 코치를 쓸 때) <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 <b>API 키</b>를 무료로 만들어요. Apps Script 왼쪽 <b>⚙︎ 프로젝트 설정 → 스크립트 속성 → 속성 추가</b>에서 이름 <code>GEMINI_API_KEY</code>, 값에 키를 넣고 저장해요.</li>
     <li>오른쪽 위 <b>배포 → 새 배포</b> → 톱니바퀴에서 <b>웹 앱</b> 선택 → 실행: <b>나</b>, 액세스 권한: <b>모든 사용자</b> → 배포. (처음엔 권한 허용 창이 떠요. "고급 → 안전하지 않음으로 이동"을 눌러 허용해요.)</li>
-    <li>나온 <b>웹 앱 URL</b>을 위 칸에 붙여넣고 <b>저장 & 연결 테스트</b>를 누르면 끝! 시트에 "리허설기록", "코치대화" 탭이 자동으로 생겨요.</li>
+    <li>나온 <b>웹 앱 URL</b>을 위 칸에 붙여넣고 <b>저장 & 연결 테스트</b>를 누르면 끝! 시트에 "리허설기록", "질문기록", "발음연습" 탭이 자동으로 생겨요.</li>
   </ol>
   <p style="font-size:12.5px;color:var(--mute);margin:4px 0 8px">코드를 고친 뒤에는 <b>배포 → 배포 관리 → ✏︎ → 버전: 새 버전</b>으로 다시 배포해야 반영돼요.</p>
   <textarea class="codebox" id="gsBox" readonly></textarea>
   <div class="tools"><button class="btn sm pri" id="bCopyCode">코드 복사</button></div>
 </div>
 
-<div id="rotate" class="hidden"><div><div class="ic">📱</div><h2 style="margin:0 0 8px">태블릿을 가로로 돌려 주세요</h2><p style="color:#9aa5bd;margin:0 0 18px">슬라이드 · 내 모습 · 대본이 한 화면에 보여요.</p><button class="btn" id="bPortrait">세로로 그냥 진행</button></div></div>
+<div id="rotate" class="hidden"><div><div class="ic">📱</div><h2 style="margin:0 0 8px">태블릿을 가로로 돌려 주세요</h2><p style="color:#9aa5bd;margin:0 0 18px">내 모습과 대본이 한 화면에 나란히 보여요.</p><button class="btn" id="bPortrait">세로로 그냥 진행</button></div></div>
 <div class="toast hidden" id="toast"></div>
 
 <script type="text/plain" id="gsCode">/**
@@ -501,6 +502,7 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
  * 3) [배포] → [새 배포] → 유형: 웹 앱 → 실행: 나 / 액세스 권한: 모든 사용자 → 배포
  * 4) 나온 웹 앱 URL(https://script.google.com/macros/s/.../exec)을 리허설 앱의
  *    [선생님 설정]에 붙여넣기
+ * 탭: 리허설기록(리허설 1번 = 1줄), 질문기록(AI 코치 질문·답), 발음연습(단어 카드 3번 통과 또는 6번 시도 = 1줄)
  * 리허설이 끝나면 기록이 자동 저장되고, 학생이 성찰을 저장하면 같은 줄에 채워집니다.
  * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필 → 버전: 새 버전 으로 다시 배포해야 반영됩니다.
  */
@@ -509,7 +511,8 @@ table.hist td{border-bottom:1px solid #f0f2f6;padding:8px 6px;font-variant-numer
 const GEMINI_MODEL = 'gemini-flash-latest';
 
 const RECORD_SHEET = '리허설기록';
-const COACH_SHEET = '코치대화';
+const COACH_SHEET = '질문기록';
+const PRON_SHEET = '발음연습';
 
 const RECORD_HEADERS = [
   '저장 시각', '반', '번호', '이름', '회차', '방식',
@@ -517,7 +520,8 @@ const RECORD_HEADERS = [
   '대본/키워드 반영(%)', '화면 보기(%)', '대본 보기(%)', '미소(%)', '손 제스처(%)',
   '다음 미션', '성찰1: 잘된 점', '성찰2: 고칠 점', '성찰3: 청중 질문', '대본', '인식된 말', '기록ID'
 ];
-const COACH_HEADERS = ['시각', '반', '번호', '이름', '종류', '학생 메시지', 'AI 코치 답변'];
+const COACH_HEADERS = ['시각', '반', '번호', '이름', '종류', '학생 질문', '코치 답변'];
+const PRON_HEADERS = ['시각', '반', '번호', '이름', '단어', '종류', '어려운 소리', '이렇게 들림', '시도', '통과', '완료'];
 
 const COACH_SYSTEM = [
   '너는 한국 고등학교 2학년 영어 말하기 수행평가를 돕는 친절한 발표 코치다.',
@@ -542,6 +546,11 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     if (d.action === 'ping') {
       return json_({ ok: true, coach: !!PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY') });
+    }
+    if (d.action === 'pron') {
+      const s = d.student || {};
+      sheet_(PRON_SHEET, PRON_HEADERS).appendRow([new Date(), s.cls, s.num, s.name, d.word, d.kind, d.sounds, d.heardAs, d.tries, d.pass, d.done ? '✓' : '']);
+      return json_({ ok: true });
     }
     if (d.action === 'reflect') {
       return json_({ ok: reflect_(d) });
@@ -1121,7 +1130,7 @@ function alignWords(scriptText, spokenText){
     });
   }
   const sContent = sIdx.filter(k => contentWords(sTok[k]).length);
-  return { sTok, pTok, sIdx, pIdx, sHit, pHit, heardAs, sOrdToP, total: n, heard: sHit.size, extra: m - pHit.size,
+  return { sTok, pTok, sIdx, pIdx, sHit, pHit, heardAs, sOrdToP, pairsOrd: pairs, total: n, heard: sHit.size, extra: m - pHit.size,
            contentTotal: sContent.length, contentHeard: sContent.filter(k => sHit.has(k)).length,
            missedContent: [...new Set(sContent.filter(k => !sHit.has(k)).map(k => sTok[k].toLowerCase()))] };
 }
@@ -1156,6 +1165,15 @@ function sentenceOf(text, pos){
   const ends = ['.', '?', '!', '\n'].map(c => text.indexOf(c, pos)).filter(k => k >= 0);
   return text.slice(st, ends.length ? Math.min(...ends) + 1 : text.length).trim();
 }
+function soundTags(w){
+  const x = w.toLowerCase(), tg = [];
+  if (/th/.test(x)) tg.push('th');
+  if (/[rl]/.test(x)) tg.push('r/l');
+  if (/[fv]|ph/.test(x)) tg.push('f/v');
+  if (/z/.test(x) || /(o|u|ea|ee|ie|i)se$/.test(x)) tg.push('z');
+  if (/[^aeiou]ed$/.test(x)) tg.push('-ed');
+  return tg;
+}
 function practiceWords(R, al){
   // spoken word ordinal → time (start of the recognized segment)
   const times = []; let prev = 0;
@@ -1172,7 +1190,7 @@ function practiceWords(R, al){
     const ctxA = al.sTok.slice(Math.max(0, tk - 10), tk).join(''), ctxB = al.sTok.slice(tk + 1, tk + 8).join('');
     const pj = al.sOrdToP[ord];
     out.push({
-      word: w, heardAs: al.heardAs[ord] || null,
+      word: w, heardAs: al.heardAs[ord] || null, kind: al.heardAs[ord] ? '리허설에서 다르게 들림' : '리허설에서 안 들림', sounds: soundTags(w),
       where: ord < n * 0.2 ? '도입' : ord > n * 0.8 ? '마무리' : '설명',
       ctxA: (tk > 10 ? '… ' : '') + ctxA, ctxB: ctxB + (tk + 8 < al.sTok.length ? ' …' : ''),
       sentence: sentenceOf(R.script, offs[tk]), tips: pronTips(w),
@@ -1180,7 +1198,30 @@ function practiceWords(R, al){
       score: (al.heardAs[ord] ? 3 : 0) + Math.min(3, w.length / 3)
     });
   });
-  return out.sort((x, y) => y.score - x.score).slice(0, 9);
+  const list = out.sort((x, y) => y.score - x.score).slice(0, 9);
+  // 남는 칸은 잘 들렸지만 까다로운 소리(th, r/l, f/v, z)가 있는 대본 단어로 채우기
+  if (list.length < 9){
+    const extra = [], used = new Set(list.map(p => normW(p.word)));
+    al.sIdx.forEach((tk, ord) => {
+      const w = al.sTok[tk], key = normW(w);
+      if (!al.sHit.has(tk) || used.has(key) || w.length < 4 || !contentWords(w).length) return;
+      const before = al.sTok.slice(Math.max(0, tk - 3), tk).join('');
+      if (/^[A-Z]/.test(w) && !/(^|[.?!\n]\s*)$/.test(before)) return;
+      const tg = soundTags(w).filter(s => s !== '-ed'); if (!tg.length) return;
+      used.add(key);
+      const pj = al.sOrdToP[ord] ?? null, ctxA = al.sTok.slice(Math.max(0, tk - 10), tk).join(''), ctxB = al.sTok.slice(tk + 1, tk + 8).join('');
+      const pIdxOrd = (() => { for (const [si, pj2] of al.pairsOrd || []) if (si === ord) return pj2; return null; })();
+      extra.push({ word: w, heardAs: null, kind: '대본 속 까다로운 소리', sounds: soundTags(w),
+        where: ord < n * 0.2 ? '도입' : ord > n * 0.8 ? '마무리' : '설명',
+        ctxA: (tk > 10 ? '… ' : '') + ctxA, ctxB: ctxB + (tk + 8 < al.sTok.length ? ' …' : ''),
+        sentence: sentenceOf(R.script, offs[tk]), tips: pronTips(w),
+        time: pIdxOrd != null && times[pIdxOrd] != null ? times[pIdxOrd] : null,
+        score: tg.length * 2 + (tg.includes('th') ? 1 : 0) + Math.min(2, w.length / 4) });
+    });
+    list.push(...extra.sort((x, y) => y.score - x.score).slice(0, 9 - list.length));
+  }
+  list.forEach(p => { p.tries = 0; p.pass = 0; p.logged = false; p.lastHeard = ''; });
+  return list;
 }
 /* ---------- script read-aloud (TTS) ---------- */
 const TTS = { sents: [], idx: -1, playing: false };
@@ -1254,9 +1295,7 @@ if (window.speechSynthesis) speechSynthesis.getVoices();
 function followAlong(card){
   if (!SR) return toast('따라 말하기는 Chrome에서 할 수 있어요');
   if (S._follow) return;
-  const word = card.dataset.word, dots = card.querySelectorAll('.dots i'), res = card.querySelector('.fres');
-  const tries = [...dots].filter(d => d.className).length;
-  if (tries >= 3){ dots.forEach(d => d.className = ''); }
+  const p = S._practice[+card.dataset.i], word = p.word, res = card.querySelector('.fres');
   const r = new SR(); r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 5; r.continuous = false;
   const btn = card.querySelector('[data-act=follow]'); btn.textContent = '🎙 듣는 중…'; btn.classList.add('on');
   S._follow = r;
@@ -1265,13 +1304,26 @@ function followAlong(card){
     if (got) return; got = true; try{ r.stop(); }catch{}
     const alts = [...e.results[0]].map(a => a.transcript.trim());
     const ok = alts.some(a => words(a).map(normW).includes(normW(word)));
-    const slot = [...card.querySelectorAll('.dots i')].find(d => !d.className);
-    if (slot) slot.className = ok ? 'ok' : 'no';
-    res.innerHTML = ok ? '<b style="color:var(--good)">✓ 잘 들렸어요!</b>' : `이렇게 들렸어요 → <b style="color:var(--fix)">${esc(alts[0] || '?')}</b>`;
+    p.tries++; if (ok) p.pass++; else p.lastHeard = alts[0] || '';
+    const dots = card.querySelectorAll('.dots i');
+    dots.forEach((d, k) => d.className = k < Math.min(3, p.pass) ? 'ok' : '');
+    card.querySelector('.cnt2').textContent = `시도 ${p.tries} · 통과 ${Math.min(3, p.pass)}/3`;
+    if (p.pass >= 3){ res.innerHTML = '<b style="color:var(--good)">🎉 완료! 3번 통과했어요</b>'; card.classList.add('done'); }
+    else if (ok) res.innerHTML = '<b style="color:var(--good)">✓ 잘 들렸어요!</b> 한 번 더!';
+    else res.innerHTML = `이렇게 들렸어요 → <b style="color:var(--fix)">${esc(alts[0] || '?')}</b>`;
+    if (!ok && p.tries >= 6 && p.pass < 3) res.innerHTML += '<br><span style="color:var(--mute)">6번 도전했어요. 듣기를 몇 번 더 듣고 다음에 다시 해 봐요.</span>';
+    if (!p.logged && (p.pass >= 3 || p.tries >= 6)) logPron(p);
   };
   r.onerror = e => { res.textContent = e.error === 'no-speech' ? '소리가 안 들렸어요. 다시 눌러 말해 보세요.' : '마이크를 확인해 주세요.'; };
   r.onend = () => { S._follow = null; btn.textContent = '🎙 따라 말하기'; btn.classList.remove('on'); if (!got && !res.textContent) res.textContent = '다시 눌러 말해 보세요.'; };
   try{ res.textContent = ''; r.start(); }catch{ S._follow = null; }
+}
+function logPron(p){
+  p.logged = true;
+  if (!sheetUrl()) return;
+  callSheet({ action: 'pron', student: S.report?.student || student(), word: p.word, kind: p.kind, sounds: p.sounds.join(', '),
+    heardAs: p.heardAs || p.lastHeard || '', tries: p.tries, pass: Math.min(3, p.pass), done: p.pass >= 3 })
+    .catch(err => { console.error(err); p.logged = false; });
 }
 function playMyVideo(t){
   const v = $('#pbVideo'); if (!v) return toast('녹화 영상이 없어요');
@@ -1444,10 +1496,10 @@ function reportSummary(R){
 function practiceHtml(R, al){
   const list = practiceWords(R, al);
   S._practice = list;
-  if (!list.length) return '<p class="note" style="margin-top:14px">🎉 다시 연습할 단어가 없어요. 대본의 중요한 단어가 모두 잘 들렸어요!</p>';
-  return `<h3 style="margin:22px 0 2px;font-size:16px">🗣 다시 연습할 단어 <small style="font-weight:500;color:var(--mute);font-size:12.5px">대본에 있었지만 컴퓨터가 알아듣지 못한 단어예요. 듣고 → 따라 말하기로 3번 도전해 보세요.</small></h3>
+  if (!list.length) return '<p class="note" style="margin-top:14px">🎉 다시 연습할 단어가 없어요. 대본의 단어가 모두 잘 들렸어요!</p>';
+  return `<h3 style="margin:22px 0 2px;font-size:16px">🗣 다시 연습할 단어 <small style="font-weight:500;color:var(--mute);font-size:12.5px">리허설에서 잘 안 들린 단어와 대본 속 까다로운 소리예요. 듣고 → 따라 말하기로 3번 통과해 보세요.</small></h3>
   <div class="pw">${list.map((p, i) => `<div class="pc" data-i="${i}" data-word="${esc(p.word)}">
-    <div class="top1"><span class="w">${esc(p.word)}</span><span class="tg">${p.where} · ${p.heardAs ? '다르게 들림' : '안 들림'}</span></div>
+    <div class="top1"><span class="w">${esc(p.word)}</span><span class="tg">${p.where} · ${p.kind.replace('리허설에서 ', '').replace('대본 속 ', '')}</span></div>
     <div class="ctx">${esc(p.ctxA)}<b>${esc(p.word)}</b>${esc(p.ctxB)}</div>
     ${p.heardAs ? `<div class="heard">이렇게 들렸어요 → <b>${esc(p.heardAs)}</b></div>` : ''}
     <div class="tips">${p.tips.map(esc).join('<br>')}</div>
@@ -1456,7 +1508,7 @@ function practiceHtml(R, al){
     </div>
     <div class="acts">
       <button data-act="sent">문장 듣기</button>${S.videoUrl && p.time != null ? `<button data-act="video">내 영상</button>` : ''}
-      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="cnt2" style="margin-left:auto;font-size:11.5px;color:var(--mute)">통과 0/3</span><span class="dots" style="margin-left:6px"><i></i><i></i><i></i></span>
     </div>
     <div class="fres"></div>
   </div>`).join('')}</div>`;
